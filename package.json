@@ -1,0 +1,33 @@
+{
+  "name": "chimneys-calendar",
+  "version": "1.0.0",
+  "description": "Chimney calendar mangager",
+  "main": "index.js",
+  "scripts": {
+    "dev":  "nodemon ./src/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tlgman/chimneys-calendar.git"
+  },
+  "keywords": [
+    "chimneys",
+    "calendar"
+  ],
+  "author": "sylvio.menubarbe@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tlgman/chimneys-calendar/issues"
+  },
+  "homepage": "https://github.com/tlgman/chimneys-calendar#readme",
+  "dependencies": {
+    "config": "^3.3.1",
+    "express": "^4.17.1",
+    "http-errors": "^1.7.3",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
