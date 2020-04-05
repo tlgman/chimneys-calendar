@@ -2,9 +2,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const userRoutes = require('./api/userRoutes');
+const morganLogger = require('./loaders/morganLogger');
+const logger = require('./loaders/logger');
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
+
+
+app.use(morganLogger);
 
 app.use(bodyParser.json());
 
@@ -20,4 +25,4 @@ app.use('/posts', () => {
   console.log('posts middleware');
 });
 
-app.listen(port);
+app.listen(PORT);

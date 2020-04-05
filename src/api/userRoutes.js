@@ -1,4 +1,5 @@
 const express = require('express');
+const logger = require('../loaders/logger')
 
 const router = express.Router();
 
