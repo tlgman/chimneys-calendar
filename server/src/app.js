@@ -8,6 +8,7 @@ const logger = require('./loaders/logger')(module);
 const db = require('./loaders/db');
 
 const userRoutes = require('./api/users');
+const interventionTypesRoutes = require('./api/interventionsTypes');
 
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.json());
 app.use(morganLogger);
 
 app.use('/users', userRoutes);
+app.use('/intervention-types', interventionTypesRoutes);
 
 app.get('/', (req, res) => {
   res.send('We are on home!');
