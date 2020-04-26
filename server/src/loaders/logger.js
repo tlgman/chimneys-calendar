@@ -1,5 +1,5 @@
 const {createLogger, addColors, format, transports} = require('winston');
-const { combine, timestamp, printf } = format;
+const { combine, timestamp, printf, splat } = format;
 const colorizer = format.colorize();
 
 const personalizedFormat = printf(({level, message, timestamp}) => {
@@ -22,6 +22,7 @@ const logger = createLogger({
       stderrLevels: ['error'],
       format: combine(
         timestamp(),
+        splat(),
         personalizedFormat
       )
     })
