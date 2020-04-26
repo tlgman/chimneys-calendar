@@ -1,1 +1,9 @@
-{}
+{
+  "db": {
+    "hostname": "localhost",
+    "port": "port",
+    "username": "postgres",
+    "password": "",
+    "dbname": "chimneys-calendar"
+  }
+}
