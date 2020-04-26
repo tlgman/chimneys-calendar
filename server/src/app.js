@@ -6,7 +6,7 @@ const config = require('config');
 const morganLogger = require('./loaders/morganLogger');
 const db = require('./loaders/db');
 
-const userRoutes = require('./api/userRoutes');
+const userRoutes = require('./api/users');
 const logger = require('./loaders/logger');
 
 const app = express();
@@ -16,11 +16,10 @@ db.authenticate()
   .then(() => logger.info('Database connected'))
   .catch(err => logger.error('CRITIC - Unable to connect database : %s', err));
 
+app.use(express.json());
 app.use(morganLogger);
 
-// app.use(bodyParser.json());
-
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
   console.log('request');
