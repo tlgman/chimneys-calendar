@@ -1,15 +1,16 @@
 const {createLogger, addColors, format, transports} = require('winston');
 const config = require('config');
-const { combine, timestamp, printf, splat } = format;
+const { combine, timestamp, printf, splat, label } = format;
 const colorizer = format.colorize();
 
-const personalizedFormat = printf(({level, message, timestamp}) => {
-  return colorizer.colorize(level,`[${timestamp}] [${level}]: ${message}`);
+const personalizedFormat = printf(({level, message, timestamp, label}) => {
+  const displayedLabel = label ? `[${label}]` : '';
+  return colorizer.colorize(level,`[${timestamp}] [${level}] ${displayedLabel} : ${message}`);
 });
 
 addColors({
   debug: 'bold',
-  http: 'blue',
+  http: 'italic blue',
   database: 'blue',
   info: 'bold',
   warn: 'italic yellow',
@@ -25,29 +26,37 @@ const levels = {
   debug: 5
 };
 
-
-const logger = createLogger({
-  level: config.get('logger.level'),
-  levels: levels,
-  transports: [
-    new transports.Console({
-      level: config.get('logger.level'),
-      stderrLevels: ['error'],
-      format: combine(
-        timestamp(),
-        splat(),
-        personalizedFormat
-      )
-    })
-  ]
-});
-
-// To expose logger stream
-// Used by morgan in this app
-logger.stream = {
-  write: function(message, encoding){
-    logger.http(message);
+const getLabel = (callingModule) => {
+  if(!callingModule || !callingModule.filename) {
+    return;
   }
+  return callingModule.filename.split('/').pop();
 };
 
-module.exports = logger;
+module.exports = (callingModule) => {
+  const logger = createLogger({
+    level: config.get('logger.level'),
+    levels: levels,
+    transports: [
+      new transports.Console({
+        level: config.get('logger.level'),
+        stderrLevels: ['error'],
+        format: combine(
+          timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
+          splat(),
+          label({ label: getLabel(callingModule)}),
+          personalizedFormat
+        )
+      })
+    ]
+  });
+
+  // To expose logger stream
+  // Used by morgan in this app
+  logger.stream = {
+    write: function(message, encoding){
+      logger.http(message);
+    }
+  };
+  return logger;
+};

@@ -1,5 +1,5 @@
 const morgan = require('morgan');
-const logger = require('./logger');
+const logger = require('./logger')();
 
 // log format
 // const format = ':remote-addr - :remote-user ":method :url HTTP/:http-version" :status :res[content-length] ":referrer" ":user-agent';

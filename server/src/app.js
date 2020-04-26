@@ -4,10 +4,11 @@ const config = require('config');
 
 
 const morganLogger = require('./loaders/morganLogger');
+const logger = require('./loaders/logger')(module);
 const db = require('./loaders/db');
 
 const userRoutes = require('./api/users');
-const logger = require('./loaders/logger');
+
 
 const app = express();
 
@@ -22,7 +23,6 @@ app.use(morganLogger);
 app.use('/users', userRoutes);
 
 app.get('/', (req, res) => {
-  console.log('request');
   res.send('We are on home!');
 });
 
