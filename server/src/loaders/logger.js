@@ -1,5 +1,3 @@
-const express = require('express');
-const morgan = require('morgan');
 const {createLogger, addColors, format, transports} = require('winston');
 const { combine, timestamp, printf } = format;
 const colorizer = format.colorize();
