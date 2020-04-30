@@ -6,11 +6,14 @@
 
 * Passer en http2: https://webapplog.com/http2-node/
   * Tester le http2 => curl "http://localhost:3000/user" --http2
+
 ## Global
 * Configurer le logger pour avoir le context (fichier utilisé ou composant...)
 * Mieux organiser la connexion à la bdd
 * Mieux gérer les erreurs critique, ex: envoyer un mail
     * Utiliser nodemailer (ou autre) pour l'erreur si critique (ex: bdd tombée)
+* Gérer les base de développement en ligne de commande avec sequelize:
+    * https://medium.com/@smallbee/how-to-use-sequelize-sync-without-difficulties-4645a8d96841
   
 ## Features
 * Prendre un rendez-vous à une horaire
