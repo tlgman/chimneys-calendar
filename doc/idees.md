@@ -9,6 +9,9 @@ Un serveur de centralisation des logs à la demandes
 Travis github ?
 
 * Pour l'affichage du choix des créneaux: s'inspirer de doctolib
+* Exemple de calendrier : https://angular-calendar.com/#/kitchen-sink
+* Exemple de dashboard : 
+    * https://templatemag.com/demo/templates/Dashio/google_maps.html
 
 ### Model
 * Sequalize postgis: https://sequelize.org/master/class/lib/data-types.js~GEOMETRY.html

@@ -15,7 +15,8 @@ const InterventionType = db.define('intervention_type', {
     type: sequelize.STRING
   }
 }, {
-  timestamps: false
+  timestamps: false,
+  underscored: true
 });
 
 module.exports = InterventionType;

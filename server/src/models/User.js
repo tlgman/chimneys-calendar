@@ -12,7 +12,8 @@ const User = db.define('user', {
     type: Sequelize.STRING
   }
 }, {
-  timestamps: false
+  timestamps: false,
+  underscored: true
 });
 
 module.exports = User;

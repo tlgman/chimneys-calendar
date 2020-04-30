@@ -1,6 +1,7 @@
 const yargs = require('yargs');
 const Sequelize = require('sequelize');
 const db = require('../loaders/db');
+require('../loaders/initAssociationsModels');
 const InterventionType = require('../models/InterventionType');
 const User = require('../models/User');
 const Appointment = require('../models/Appointment');

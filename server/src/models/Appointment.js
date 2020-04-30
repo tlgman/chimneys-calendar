@@ -10,7 +10,7 @@ const Appointment = db.define('appointment', {
   },
   etat: {
     type: Sequelize.ENUM,
-    values: ['taken', 'in_progress', 'done', 'canceled'],
+    values: ['taken', 'validated', 'in_progress', 'done', 'canceled'],
     defaultValue: 'taken'
   },
   description: {
@@ -22,9 +22,6 @@ const Appointment = db.define('appointment', {
   idAddress: {
     type: Sequelize.INTEGER
   },
-  idTypeIntervention: {
-    type: Sequelize.INTEGER
-  }
 }, {
   underscored: true
 });

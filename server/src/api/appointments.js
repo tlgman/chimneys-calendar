@@ -7,11 +7,20 @@ const router = new Router();
 
 router.get('/', async (req, res) => {
   try {
-    const appointments = await Appointment.findAll();
+    const appointments = (await Appointment.findAll({include: ['interventionType']}))
+      .map(appointment => {
+        if(appointment.interventionType) {
+          // No display price and description
+          appointment.interventionType.price = void(0);
+          appointment.interventionType.description = void(0);
+        }
+        return appointment;
+      });
+    // const interventions = await appointments.getInterventionsType();
     res.send(appointments);
   } catch(ex) {
-    logger.error('Unable to get appointments %j', ex);
-    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR).send({error: 'Unable to get appointments'});
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({error: 'Unable to get appointments'});
+    logger.error('Unable to get appointments %o', ex);
   }
 });
 
@@ -23,12 +32,12 @@ router.post('/', async(req, res) => {
       duration: '2h10',
       etat: 'taken',
       description: req.body.description,
-      idTypeIntervention: 1
+      interventionTypeId: 1
     });
     res.status(HttpStatus.CREATED).send(appointment);
   } catch(ex) {
-    logger.error('Unable to create appointments %j', ex);
-    res.sendStatus(HttpStatus.INTERNAL_SERVER_ERROR).send({error: 'Unable to create appointments'});
+    res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({error: 'Unable to create appointments'});
+    logger.error('Unable to create appointments %o', ex);
   }
 });
 

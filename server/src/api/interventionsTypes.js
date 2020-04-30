@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
     const interventionsTypes = await InterventionType.findAll();
     res.send(interventionsTypes);
   } catch(ex) {
-    logger.error('Unable to get intervention type: %j', ex);
+    logger.error('Unable to get intervention type: %o', ex);
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({error: 'Unable to get intervention type'});
   }
 });
@@ -25,7 +25,7 @@ router.post('/', async (req, res) => {
     });
     res.status(HttpStatus.CREATED).send(interventionType);
   } catch(ex) {
-    logger.error('Unable to create intervention type: %j', ex);
+    logger.error('Unable to create intervention type: %o', ex);
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({error: 'Unable to create intervention type'});
   }
 });

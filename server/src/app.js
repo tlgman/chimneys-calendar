@@ -1,11 +1,10 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const config = require('config');
-
 
 const morganLogger = require('./loaders/morganLogger');
 const logger = require('./loaders/logger')(module);
 const db = require('./loaders/db');
+require('./loaders/initAssociationsModels');
 
 const userRoutes = require('./api/users');
 const interventionTypesRoutes = require('./api/interventionsTypes');
