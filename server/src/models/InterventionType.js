@@ -17,3 +17,5 @@ const InterventionType = db.define('intervention_type', {
 }, {
   timestamps: false
 });
+
+module.exports = InterventionType;

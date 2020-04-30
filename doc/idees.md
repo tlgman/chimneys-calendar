@@ -8,7 +8,7 @@ Un serveur de centralisation des logs à la demandes
 
 Travis github ?
 
-
+* Pour l'affichage du choix des créneaux: s'inspirer de doctolib
 
 ### Model
 Sequalize postgis: https://sequelize.org/master/class/lib/data-types.js~GEOMETRY.html

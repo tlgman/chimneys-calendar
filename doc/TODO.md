@@ -1,6 +1,7 @@
 # TODO
 
 
+
 * Comprendre et utiliser async sur les fonctions express
 
 * Passer en http2: https://webapplog.com/http2-node/
@@ -18,3 +19,19 @@
     * Demander son numéro
 * Pouvoir modifier son rendez-vous avec le mail (modifier/supprimer)
 * Admin: Valider un rendez-vous
+
+
+# API
+
+## intervation_types
+
+* consulter liste
+* consulter détail
+* créer
+* editer
+* desactiver
+* supprimer => Voir comment la faire
+
+## Client
+* consulter liste (avec dernières adresses)
+* consulter client

@@ -1,6 +1,9 @@
 
 
 
+* choix du créneau
+    * L'utilisateur arrive directement sur la première semaine disponnible
+
 
 * L'admin doit pouvoir rajouter des rdv à la main.
     * Acceès la carte
