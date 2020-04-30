@@ -11,7 +11,8 @@ Travis github ?
 * Pour l'affichage du choix des créneaux: s'inspirer de doctolib
 
 ### Model
-Sequalize postgis: https://sequelize.org/master/class/lib/data-types.js~GEOMETRY.html
+* Sequalize postgis: https://sequelize.org/master/class/lib/data-types.js~GEOMETRY.html
+* Utiliser les range type pour le début et fin d'évènement: https://sequelize.org/v5/manual/data-types.html
 
 
 ### API
