@@ -9,7 +9,7 @@ const InterventionType = db.define('intervention_type', {
     type: sequelize.STRING
   },
   price: {
-    type: sequelize.NUMBER
+    type: sequelize.DECIMAL(2)
   },
   duration: {
     type: sequelize.STRING

@@ -10,7 +10,6 @@ const db = require('./loaders/db');
 const userRoutes = require('./api/users');
 const interventionTypesRoutes = require('./api/interventionsTypes');
 
-
 const app = express();
 
 // Init database and test connection

@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "NODE_CONFIG_DIR=src/config nodemon ./src/app.js",
+    "start": "NODE_CONFIG_DIR=src/config node ./src/app.js",
+    "init-db": "NODE_CONFIG_DIR=src/config node ./src/jobs/initDb",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -32,6 +34,7 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "yargs": "^15.3.1"
   }
 }
