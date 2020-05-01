@@ -23,11 +23,13 @@
 * Pouvoir modifier son rendez-vous avec le mail (modifier/supprimer)
 * Admin: Valider un rendez-vous
 
+# Front
+* Ajouter fa icones
 
 # API
 
 ## intervation_types
-
+* Faire les vérifications des données d'entrée avec 'jai'
 * consulter liste
 * consulter détail
 * créer
