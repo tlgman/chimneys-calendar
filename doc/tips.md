@@ -5,3 +5,19 @@
     * https://www.youtube.com/watch?v=bOHysWYMZM0&t=141s
     * https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/
     * https://www.youtube.com/watch?time_continue=840&v=pxo7L5nd1gA&feature=emb_title
+
+* Pour l'affichage du choix des créneaux: s'inspirer de doctolib
+* Exemple de calendrier : https://angular-calendar.com/#/kitchen-sink
+* Exemple de dashboard : 
+    * https://templatemag.com/demo/templates/Dashio/general.html
+* Utiliser openlayers avec angular: https://www.youtube.com/watch?v=csuEdZZebFs
+
+### Model
+* Sequalize postgis: https://sequelize.org/master/class/lib/data-types.js~GEOMETRY.html
+* Utiliser les range type pour le début et fin d'évènement: https://sequelize.org/v5/manual/data-types.html
+
+
+### API
+Geocoder:  
+* https://adresse.data.gouv.fr/
+    * https://geo.api.gouv.fr/adresse

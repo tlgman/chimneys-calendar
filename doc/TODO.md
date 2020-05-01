@@ -26,6 +26,12 @@
 # Front
 * Ajouter fa icones
 
+## Calendrier
+* Pouvoir consulter par semaine/jour/mois/année
+* Séletionner un jours
+* Afficher des heures supplémentaires si un rdv est pris (ex: rdv à 20h)
+* Afficher les weekends seulement si rdv
+
 # API
 
 ## intervation_types
