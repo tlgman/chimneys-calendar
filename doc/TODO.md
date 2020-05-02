@@ -1,9 +1,6 @@
 # TODO
 
 
-
-* Comprendre et utiliser async sur les fonctions express
-
 * Passer en http2: https://webapplog.com/http2-node/
   * Tester le http2 => curl "http://localhost:3000/user" --http2
 
@@ -25,6 +22,14 @@
 
 # Front
 * Ajouter fa icones
+* Mettre en place un composant de notification
+* Mettre en place un système pour chager des configs au démarrage
+ * Utiliser pour les url des requêtes
+
+
+## Créer zone
+* Création, demander à l'utilisateur s'il veut quitter
+    * Utiliser les props de ngForm pour voir si le fomulaire a été modifé
 
 ## Calendrier
 * Pouvoir consulter par semaine/jour/mois/année
@@ -39,7 +44,11 @@
 * Afficher le titre de la zone sur la carte
 * Outils de modification / création des formes sur le coté => postions des points....
 * Fixer controle pour ne pas supprimer à chaque fois le snap
-* 
+* Style du dessin (voir le point quand on dessine)
+* Ajouter les autres zone dans le Snap
+* Ajouter un bouton pour afficher la carte en fullscreen
+* Ajouter un retour arrière aux outils de dessin
+* Pouvoir supprimer des points d'une forme
 
 
 # API

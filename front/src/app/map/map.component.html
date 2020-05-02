@@ -1,6 +1,4 @@
 <div (keydown.arrowUp)="onCtrlKeyDown()">
-  <p> slt !!  {{drawingToolOptions.strokeColor}}</p>
-
   <app-drawing-tool *ngIf="drawingToolEnabled && isMapInitialized"
                     [map]="map"
                     [strokeColor]="drawingToolOptions.strokeColor"

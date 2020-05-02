@@ -6,15 +6,19 @@ import CircleStyle from "ol/style/Circle";
 import VectorSource from "ol/source/Vector";
 import {Draw, Modify, Snap} from "ol/interaction";
 import GeometryType from "ol/geom/GeometryType";
+import {DragInteraction} from './DragInteraction';
+import {RemoveInteraction} from './RemoveInteraction';
+import {DrawingService} from "./drawing.service";
 
 const STROKE_WIDTH = 3;
+
+enum Mode {NONE, DRAW, DRAG, DELETE};
 
 @Component({
   selector: 'app-drawing-tool',
   templateUrl: './drawing-tool.component.html',
   styleUrls: ['./drawing-tool.component.scss']
 })
-
 
 export class DrawingToolComponent implements OnInit, OnDestroy {
   @Input('map') map: Map;
@@ -35,8 +39,12 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
   draw: Draw;
   modify: Modify;
   snap: Snap;
+  drag: any;
+  remove: any;
+  currentMode: Mode = Mode.NONE;
+  isSnapActive: boolean = true;
 
-  constructor() {}
+  constructor(private drawingService: DrawingService) {}
 
   ngOnInit(): void {
     this.drawingSource = new VectorSource();
@@ -53,22 +61,19 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
         image: new CircleStyle({
           radius: 7,
           fill: new Fill({
-            color: this.fillColor
+            color: this.strokeColor
           })
         })
       })
     });
+    this.drawingService.init(this.drawingLayer, this.drawingSource);
 
     this.map.addLayer(this.drawingLayer);
 
-    console.log(this.drawingLayer.getStyle());
-
-
-    // // this.map.getLayers().insertAt(0, this.drawingLayer);
-    // console.log(this.map);
-    //
-    //
-    this.modify = new Modify({source: this.drawingSource});
+    this.modify = new Modify({
+      source: this.drawingSource,
+      style: this.drawingLayer.getStyle()
+    });
     this.snap = new Snap({source: this.drawingSource});
     this.draw = new Draw({
       source: this.drawingSource,
@@ -76,33 +81,73 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       // Same style for current drawn feature and drawn feature
       style: this.drawingLayer.getStyle()
     });
-    this.map.addInteraction(this.modify);
+    this.drag = new DragInteraction();
+    this.remove = new RemoveInteraction({source: this.drawingSource});
+    this.startDrawPolygon();
   }
 
   /**
-   * Type on control, activate ou desactivate 'snap'
+   * Press control, activate or desactivate 'snap'
    */
   @HostListener('document:keydown.control')
   handleCtrlDownEvent(): void {
-    console.log('key down');
-    this.map.removeInteraction(this.snap);
+    if(this.isSnapActive) {
+      this.isSnapActive = false;
+      this.map.removeInteraction(this.snap);
+    }
   }
 
   @HostListener('document:keyup.control', ['$event'])
   handleCtrlUpEvent(): void {
-    console.log('key up');
-    this.map.addInteraction(this.snap);
+    if(!this.isSnapActive) {
+      this.isSnapActive = true;
+      this.map.addInteraction(this.snap);
+    }
   }
 
 
   ngOnDestroy(): void {
-    this.map.removeInteraction(this.draw);
+    this.changeMode(Mode.NONE);
     this.map.removeInteraction(this.modify);
   }
 
-  startPolygon() {
-    this.map.addInteraction(this.draw);
-    this.map.addInteraction(this.snap);
+  startDrawPolygon() {
+    this.changeMode(Mode.DRAW);
+  }
+
+  startDrag() {
+    this.changeMode(Mode.DRAG)
+  }
+
+  startRemove() {
+    this.changeMode(Mode.DELETE);
+  }
+
+  changeMode(mode: Mode) {
+    if(this.currentMode === mode) {
+      return;
+    }
+    this.resetInteractions();
+    if(mode === Mode.DRAG) {
+      this.map.addInteraction(this.drag);
+      this.map.addInteraction(this.modify);
+      this.map.addInteraction(this.snap);
+    } else if(mode === Mode.DRAW){
+      this.map.addInteraction(this.modify);
+      this.map.addInteraction(this.draw);
+      this.map.addInteraction(this.snap);
+    } else if(mode === Mode.DELETE) {
+      this.map.addInteraction(this.remove);
+    }
+    this.currentMode = mode;
+  }
+
+  private resetInteractions() {
+    this.map.removeInteraction(this.draw);
+    this.map.removeInteraction(this.snap);
+    this.map.removeInteraction(this.modify);
+    this.map.removeInteraction(this.remove);
+    this.map.removeInteraction(this.drag);
   }
 
   /**
@@ -115,11 +160,15 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
        color: this._strokeColor,
        width: STROKE_WIDTH
      }));
+     // Change drawing cursor style
+     style.setImage(new CircleStyle({
+       radius: 7,
+       fill: new Fill({
+         color: this.strokeColor
+       })
+     }));
      // Set style to notify openlayers
      this.drawingLayer.setStyle(style);
    }
   }
-
-
-
 }

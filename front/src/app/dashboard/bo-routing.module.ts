@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {DashboardComponent} from "./dashboard.component";
 import {PageZonesComponent} from "./pages/page-zones/page-zones.component";
 import {PageCalendarComponent} from "./pages/page-calendar/page-calendar.component";
-import {PageCreateZoneComponent} from "./pages/page-create-zone/page-create-zone.component";
+import {PageCreateZoneComponent} from "./pages/page-zones/page-create-zone/page-create-zone.component";
 
 const routes: Routes = [
   {path: '', component: DashboardComponent, children: [
