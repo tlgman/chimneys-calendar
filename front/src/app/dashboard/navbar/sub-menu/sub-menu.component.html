@@ -1,3 +1,8 @@
 <a [routerLink]="[link]" routerLinkActive="active" [routerLinkActiveOptions]="{exact: activeLinkOptionExact}">
   <ng-content></ng-content>
 </a>
+<ul *ngIf="childs.length">
+  <li *ngFor="let childMenu of childs"><a [routerLink]="[childMenu.link]" routerLinkActive="active">
+    {{childMenu.title}}
+  </a></li>
+</ul>

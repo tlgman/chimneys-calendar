@@ -1,7 +1,15 @@
 <nav class="sidebar">
   <ul class="sidebar-menu">
-    <li class="sub-menu"><app-submenu link="/dashboard" [activeLinkOptionExact]="true">Dashboard</app-submenu></li>
+    <li class="sub-menu"><app-submenu link="/dashboard" [activeLinkOptionExact]="true">Accueil</app-submenu></li>
     <li class="sub-menu"><app-submenu link="calendar">Calendrier</app-submenu></li>
-    <li class="sub-menu"><app-submenu link="zones">Zones</app-submenu></li>
+    <li class="sub-menu">
+      <app-submenu
+          link="zones"
+          [activeLinkOptionExact]="true"
+          [childs]="[{title: 'Créer', link: 'zones/create'}]"
+      >
+        Zones
+      </app-submenu>
+    </li>
   </ul>
 </nav>

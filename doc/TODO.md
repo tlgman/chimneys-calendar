@@ -31,6 +31,16 @@
 * Séletionner un jours
 * Afficher des heures supplémentaires si un rdv est pris (ex: rdv à 20h)
 * Afficher les weekends seulement si rdv
+* Sélectionner automatiquement le jour le prochain jour le plus près affichable : 
+    * ex : si on est le weekend, on met selectionne le lundi
+
+##Map
+* Trouver un moyen pour garder la même instance de la map (le même composant), tout le backend
+* Afficher le titre de la zone sur la carte
+* Outils de modification / création des formes sur le coté => postions des points....
+* Fixer controle pour ne pas supprimer à chaque fois le snap
+* 
+
 
 # API
 

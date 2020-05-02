@@ -9,8 +9,13 @@
 * Pour l'affichage du choix des créneaux: s'inspirer de doctolib
 * Exemple de calendrier : https://angular-calendar.com/#/kitchen-sink
 * Exemple de dashboard : 
+    * BEST : https://colorlib.com/polygon/gentelella/
     * https://templatemag.com/demo/templates/Dashio/general.html
 * Utiliser openlayers avec angular: https://www.youtube.com/watch?v=csuEdZZebFs
+
+### Map
+Exemple dessin: https://www.scribblemaps.com/create/#/lat=44.6217541&lng=-4.92187499&z=6&t=hybrid
+
 
 ### Model
 * Sequalize postgis: https://sequelize.org/master/class/lib/data-types.js~GEOMETRY.html

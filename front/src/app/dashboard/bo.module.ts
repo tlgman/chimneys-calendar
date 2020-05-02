@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { DashboardComponent } from './dashboard.component';
 
 import { BoRoutingModule } from './bo-routing.module';
@@ -10,13 +11,7 @@ import { PageZonesComponent } from './pages/page-zones/page-zones.component';
 import {MapModule} from "../map/map.module";
 import { PageCalendarComponent } from './pages/page-calendar/page-calendar.component';
 import { CalendarModule } from '../calendar/calendar.module';
-
-
-// import * as moment from 'moment/moment.js';
-//
-// export function momentAdapterFactory() {
-//   return adapterFactory(moment);
-// }
+import { PageCreateZoneComponent } from './pages/page-create-zone/page-create-zone.component';
 
 
 @NgModule({
@@ -27,9 +22,11 @@ import { CalendarModule } from '../calendar/calendar.module';
     SubMenuComponent,
     PageZonesComponent,
     PageCalendarComponent,
+    PageCreateZoneComponent,
   ],
   imports: [
     CommonModule,
+    FormsModule,
     BoRoutingModule,
     MapModule,
     CalendarModule

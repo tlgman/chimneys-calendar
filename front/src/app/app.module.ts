@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {BoModule} from "./dashboard/bo.module";
 import { HomeComponent } from './home/home.component';
-import { MapComponent } from './map/map.component';
 import {MapModule} from "./map/map.module";
 
 @NgModule({

@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {MapComponent} from "./map.component";
+import { DrawingToolComponent } from './drawing-tool/drawing-tool.component';
 
 @NgModule({
   declarations: [
-    MapComponent
+    MapComponent,
+    DrawingToolComponent
   ],
   imports: [
     CommonModule

@@ -1,0 +1,26 @@
+<h2>Créer une zone</h2>
+<h1>{{nameZone}}</h1>
+
+<app-map drawing-tool="true" [drawing-tool-options]="{strokeColor: colorZone}"></app-map>
+
+{{colorZone}}
+
+<form>
+  <p>Numéro: ##</p>
+  <div class="form-group">
+    <label for="zone-color-input">Couleur</label>
+    <input id="zone-color-input" class="form-control" type="color" [(ngModel)]="colorZone" [ngModelOptions]="{standalone: true}">
+  </div>
+
+  <div class="form-group">
+    <label for="zone-name-input">Nom de la zone</label>
+    <input id="zone-name-input" class="form-control" type="text" [(ngModel)]="nameZone" [ngModelOptions]="{standalone: true}">
+  </div>
+  <div class="form-group">
+    <label for="zone-start-input"></label>
+    <input id="zone-start-input" class="form-control" type="date">
+  </div>
+
+  <input type="submit" class="btn btn-primary" value="Ajouter">
+  <button class="btn btn-danger">Annuler</button>
+</form>

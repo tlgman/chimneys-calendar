@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SubMenuComponent implements OnInit {
   @Input('link') link: string = '';
   @Input('activeLinkOptionExact') activeLinkOptionExact: boolean = false;
+  @Input() childs: Array<{title: string, link: string}> = [];
 
   constructor() { }
 
