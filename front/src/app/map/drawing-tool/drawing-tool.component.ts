@@ -48,24 +48,7 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.drawingSource = new VectorSource();
-    this.drawingLayer = new VectorLayer({
-      source: this.drawingSource,
-      style: new Style({
-        fill: new Fill({
-          color: this.fillColor
-        }),
-        stroke: new Stroke({
-          color: this.strokeColor,
-          width: STROKE_WIDTH
-        }),
-        image: new CircleStyle({
-          radius: 7,
-          fill: new Fill({
-            color: this.strokeColor
-          })
-        })
-      })
-    });
+    this.drawingLayer = this.createVectorLayer();
     this.drawingService.init(this.drawingLayer, this.drawingSource);
 
     this.map.addLayer(this.drawingLayer);
@@ -81,8 +64,11 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
       // Same style for current drawn feature and drawn feature
       style: this.drawingLayer.getStyle()
     });
-    this.drag = new DragInteraction();
-    this.remove = new RemoveInteraction({source: this.drawingSource});
+    this.drag = new DragInteraction({layers: [this.drawingLayer]});
+    this.remove = new RemoveInteraction({
+      source: this.drawingSource,
+      layers: [this.drawingLayer]
+    });
     this.startDrawPolygon();
   }
 
@@ -129,6 +115,9 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
     }
     this.resetInteractions();
     if(mode === Mode.DRAG) {
+      // console.log((this.map.getLayers().getArray()[2] as VectorLayer).getSource().getFeatures());
+      // const features = (this.map.getLayers().getArray()[2] as VectorLayer).getSource().getFeatures();
+      // this.snap.addFeature(features[0])
       this.map.addInteraction(this.drag);
       this.map.addInteraction(this.modify);
       this.map.addInteraction(this.snap);
@@ -170,5 +159,26 @@ export class DrawingToolComponent implements OnInit, OnDestroy {
      // Set style to notify openlayers
      this.drawingLayer.setStyle(style);
    }
+  }
+
+  private createVectorLayer(): VectorLayer {
+    return new VectorLayer({
+      source: this.drawingSource,
+      style: new Style({
+        fill: new Fill({
+          color: this.fillColor
+        }),
+        stroke: new Stroke({
+          color: this.strokeColor,
+          width: STROKE_WIDTH
+        }),
+        image: new CircleStyle({
+          radius: 7,
+          fill: new Fill({
+            color: this.strokeColor
+          })
+        })
+      })
+    });
   }
 }

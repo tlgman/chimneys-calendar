@@ -1,9 +1,10 @@
-import {Component, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Zone} from '../zone.model';
 import {DrawingService} from "../../../../map/drawing-tool/drawing.service";
 import {GeoJSON} from 'ol/format';
 import {ZoneService} from "../zone.service";
+import {MapComponent} from "../../../../map/map.component";
 
 
 @Component({
@@ -11,14 +12,24 @@ import {ZoneService} from "../zone.service";
   templateUrl: './page-create-zone.component.html',
   styleUrls: ['./page-create-zone.component.scss']
 })
-export class PageCreateZoneComponent {
+export class PageCreateZoneComponent implements OnInit {
   @ViewChild('createZoneForm') zoneForm: NgForm;
+  @ViewChild('map') map: MapComponent;
   colorZone: string = '#000000';
   nameZone: string = '';
   constructor(
     private drawingService: DrawingService,
     private zoneService: ZoneService
-  ) { }
+  ) {}
+
+  ngOnInit(): void {
+    this.zoneService.fetch()
+      .subscribe((zones: Zone[]) => {
+        this.map.addZones(zones);
+      }, error => {
+        console.log('Unable to load zones: ', error);
+      });
+  }
 
   onSubmit() {
     const features = this.drawingService.getDrawnFeatures();

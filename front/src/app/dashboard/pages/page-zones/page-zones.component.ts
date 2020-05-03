@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MapComponent} from "../../../map/map.component";
+import {ZoneService} from "./zone.service";
+import {Zone} from './zone.model';
 
 @Component({
   selector: 'app-page-zones',
@@ -6,10 +9,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-zones.component.scss']
 })
 export class PageZonesComponent implements OnInit {
+  @ViewChild('map') map: MapComponent;
 
-  constructor() { }
+  constructor(private zoneService: ZoneService) { }
 
   ngOnInit(): void {
+    this.zoneService.fetch()
+      .subscribe((zones) => {
+        this.map.addZones(zones);
+      },error => {
+        console.log('Unable to fetch zone: ', error);
+      });
   }
-
 }

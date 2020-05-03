@@ -8,7 +8,7 @@ export interface Zone {
   features: Feature[]
 }
 
-export interface ZoneJsonable {
+export interface JsonableZone {
   id: number;
   name?: string;
   color: string;

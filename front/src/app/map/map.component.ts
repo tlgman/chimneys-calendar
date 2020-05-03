@@ -11,6 +11,11 @@ import View from 'ol/View';
 import TileLayer from 'ol/layer/Tile';
 import OSM from 'ol/source/OSM';
 import {fromLonLat} from 'ol/proj';
+import VectorSource from "ol/source/Vector";
+import VectorLayer from "ol/layer/Vector";
+import {Zone} from '../dashboard/pages/page-zones/zone.model';
+import {Fill, Stroke, Style} from "ol/style";
+import {ColorUtilsService} from "../../utils/color-utils.service";
 
 @Component({
   selector: 'app-map',
@@ -26,8 +31,10 @@ export class MapComponent implements OnInit, AfterViewInit {
   map: Map = null;
   uniqid: string;
   isMapInitialized: boolean = false;
+  zoneLayer: VectorLayer = null;
+  zoneSource: VectorSource = null;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(private cdr: ChangeDetectorRef, private colorUtils: ColorUtilsService) { }
 
   ngOnInit(): void {
     this.generateUniqId();
@@ -55,13 +62,39 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
   }
 
+  addZones(zones: Zone[]) {
+    this.addZoneLayer();
+    zones.forEach(zone => {
+      console.log(this.colorUtils.hexToRgb(zone.color));
+      const fillColor = this.colorUtils.hexToRgb(zone.color);
+      fillColor[3] = 0.3;
+      const zoneStyle = new Style({
+        stroke: new Stroke({
+          width: 3,
+          color: zone.color
+        }),
+        fill: new Fill({
+          color: fillColor
+        })
+      });
+      zone.features.forEach(feature => feature.setStyle(zoneStyle));
+      this.zoneSource.addFeatures(zone.features);
+    });
+  }
+
+  private addZoneLayer() {
+    if(this.zoneLayer === null) {
+      this.zoneSource = new VectorSource();
+      this.zoneLayer = new VectorLayer({
+        source: this.zoneSource
+      });
+    }
+    this.map.addLayer(this.zoneLayer)
+  }
+
   private generateUniqId() {
     const n = Math.floor(Math.random() * 11);
     this.uniqid = String.fromCharCode(n);
-  }
-
-  onCtrlKeyDown() {
-    console.log('ctrl');
   }
 
 }

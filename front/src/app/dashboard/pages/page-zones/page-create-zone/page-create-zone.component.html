@@ -1,7 +1,11 @@
 <h2>Créer une zone</h2>
 <h6 class="zone-title">{{nameZone}}</h6>
 
-<app-map drawing-tool="true" [drawing-tool-options]="{strokeColor: colorZone}"></app-map>
+<app-map
+    drawing-tool="true"
+    [drawing-tool-options]="{strokeColor: colorZone}"
+    #map
+></app-map>
 
 <form (ngSubmit)="onSubmit()" #createZoneForm="ngForm">
   <p>Numéro: ##</p>

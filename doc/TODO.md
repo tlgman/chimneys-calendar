@@ -32,9 +32,17 @@
  * Utiliser pour les url des requêtes
 
 
-## Créer zone
+## Demande de rdv (client)
+* Lister les demandes d'adresse client qui sont tombées à coté d'une zone
+    * Utile pour faire des vérifs
+
+## Zones
+* Optimiser le chargemnet des zones, pas forcément obligé de recharger à chaque fois toutes les zones
+
+### Créer zone
 * Création, demander à l'utilisateur s'il veut quitter
     * Utiliser les props de ngForm pour voir si le fomulaire a été modifé
+* Fix : Outils de dessin => Erreur si on essaye de supprimer une zone qu'on à pas créé
 
 ## Calendrier
 * Pouvoir consulter par semaine/jour/mois/année
@@ -54,6 +62,8 @@
 * Ajouter un bouton pour afficher la carte en fullscreen
 * Ajouter un retour arrière aux outils de dessin
 * Pouvoir supprimer des points d'une forme
+* FIX : Des fois, la carte ne s'affiche pas...
+    * Arrive des fois, quand on change de créer à zones 
 
 
 # API

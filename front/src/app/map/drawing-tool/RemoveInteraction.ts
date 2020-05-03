@@ -1,8 +1,10 @@
 import PointerInteraction from "ol/interaction/Pointer";
 import {Source} from "ol/source";
+import {Layer} from "ol/layer";
 
 interface Options {
-  source?: Source
+  source?: Source,
+  layers?: Layer<Source>[]
 }
 
 export const RemoveInteraction = /*@__PURE__*/(function (PointerInteraction) {
@@ -24,6 +26,14 @@ export const RemoveInteraction = /*@__PURE__*/(function (PointerInteraction) {
      * @private
      */
     this.previousCursor_ = undefined;
+
+    if(options.layers) {
+      /**
+       * Layers enabled for removing interaction
+       * Layer<Source>
+       */
+      this.layerFilter = (layer: Layer<Source>) => options.layers.includes(layer);
+    }
   }
 
   if ( PointerInteraction ) RemoveInteraction.__proto__ = PointerInteraction;
@@ -40,7 +50,11 @@ export const RemoveInteraction = /*@__PURE__*/(function (PointerInteraction) {
  */
 function handleDownEvent(evt) {
   const map = evt.map;
-  const feature = map.forEachFeatureAtPixel(evt.pixel, feature => feature);
+  const feature = map.forEachFeatureAtPixel(
+    evt.pixel,
+    feature => feature,
+    {layerFilter: this.layerFilter}
+  );
   if (feature && this.source_) {
     this.source_.removeFeature(feature);
   }
@@ -54,10 +68,11 @@ function handleDownEvent(evt) {
 function handleMoveEvent(evt) {
   if (this.cursor_) {
     const map = evt.map;
-    const feature = map.forEachFeatureAtPixel(evt.pixel,
-      function(feature) {
-        return feature;
-      });
+    const feature = map.forEachFeatureAtPixel(
+      evt.pixel,
+      feature => feature,
+      {layerFilter: this.layerFilter}
+    );
     const element = evt.map.getTargetElement();
     if (feature) {
       if (element.style.cursor != this.cursor_) {
