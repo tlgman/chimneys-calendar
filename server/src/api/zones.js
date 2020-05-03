@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
     const zone = await Zone.create({
       name: req.body.name || null,
       color: req.body.color,
-      geom: req.body.features.features[0].geometry
+      geom: req.body.geom
     });
     res.status(HttpStatus.CREATED).send(zone);
   } catch(err) {

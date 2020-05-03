@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Zone} from './zone.model';
+import {Zone, ZoneJsonable} from './zone.model';
 import Feature from "ol/Feature";
 import {GeoJSON} from "ol/format";
 
@@ -17,9 +17,21 @@ export class ZoneService {
    * @param zone
    */
   create(zone: Zone) {
-    const zoneToPost = {...zone};
-    zoneToPost.features = this.writeFeaturesToGeoJSON(zone.features as Feature[]);
-    return this.http.post<Zone>('http://localhost:3000/zones', zoneToPost)
+    const zoneToPost: ZoneJsonable = {
+      id: zone.id,
+      name: zone.name,
+      color: zone.color,
+      geom: null
+    };
+    zoneToPost.geom = this.writeFeaturesToGeoJSON(zone.features);
+    return this.http.post<ZoneJsonable>('http://localhost:3000/zones', zoneToPost)
+  }
+
+  /**
+   * Get all zones
+   */
+  fetch() {
+    return this.http.get<ZoneJsonable>('http://localhost:3000/zones');
   }
 
   /**
@@ -27,13 +39,18 @@ export class ZoneService {
    * @param features
    */
   private writeFeaturesToGeoJSON(features: Feature[]): object {
-    // Rerpoject all feature in 4326
-    const reprojectedFeatures = features.map(feature => {
-      const reprojFeature = feature.clone();
-      reprojFeature.getGeometry().transform('EPSG:3857', 'EPSG:4326');
-      return reprojFeature;
-    });
-    return this.geoJson.writeFeaturesObject(reprojectedFeatures);
+    if(!features.length) {
+      return null;
+    }
+    // TODO : Only on feature for the moment => Change to many or multipolygon
+    const feature = features[0];
+    // Rerpoject geometry in 4326
+    const geoJsonGeom = this.geoJson.writeGeometryObject(feature.getGeometry(), {
+      featureProjection: 'EPSG:3857',
+      dataProjection: 'EPSG:4326'
+    }) as any;
+    geoJsonGeom.crs = {type: 'name', properties: {name: 'EPSG:4326'}};
+    return geoJsonGeom;
   }
 
 }
