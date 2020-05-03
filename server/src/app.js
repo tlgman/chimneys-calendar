@@ -9,6 +9,7 @@ require('./loaders/initAssociationsModels');
 const userRoutes = require('./api/users');
 const interventionTypesRoutes = require('./api/interventionsTypes');
 const appointmentsRoutes = require('./api/appointments');
+const zonesRoutes = require('./api/zones');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(morganLogger);
 app.use('/users', userRoutes);
 app.use('/intervention-types', interventionTypesRoutes);
 app.use('/appointments', appointmentsRoutes);
+app.use('/zones', zonesRoutes);
 
 app.get('/', (req, res) => {
   res.send('We are on home!');

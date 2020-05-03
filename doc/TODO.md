@@ -20,6 +20,11 @@
 * Pouvoir modifier son rendez-vous avec le mail (modifier/supprimer)
 * Admin: Valider un rendez-vous
 
+## Zones
+* Convertir les polygones en mutlipolygones
+
+
+
 # Front
 * Ajouter fa icones
 * Mettre en place un composant de notification

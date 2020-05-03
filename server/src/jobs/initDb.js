@@ -5,6 +5,7 @@ require('../loaders/initAssociationsModels');
 const InterventionType = require('../models/InterventionType');
 const User = require('../models/User');
 const Appointment = require('../models/Appointment');
+const Zone = require('../models/Zone');
 
 
 const argv = yargs

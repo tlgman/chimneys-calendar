@@ -19,7 +19,7 @@ export class ZoneService {
   create(zone: Zone) {
     const zoneToPost = {...zone};
     zoneToPost.features = this.writeFeaturesToGeoJSON(zone.features as Feature[]);
-    return this.http.post<Zone>('http://localhost:3000/zone', zoneToPost)
+    return this.http.post<Zone>('http://localhost:3000/zones', zoneToPost)
   }
 
   /**

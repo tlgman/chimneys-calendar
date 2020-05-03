@@ -2,9 +2,9 @@
   "db": {
     "hostname": "localhost",
     "port": "port",
-    "username": "postgres",
-    "password": "",
-    "dbname": "chimneys-calendar"
+    "username": "chimney",
+    "password": "chimney",
+    "dbname": "chimneys_calendar"
   },
   "logger": {
     "level": "debug"

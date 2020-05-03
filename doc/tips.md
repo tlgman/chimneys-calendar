@@ -16,9 +16,13 @@
 ### Map
 Exemple dessin: https://www.scribblemaps.com/create/#/lat=44.6217541&lng=-4.92187499&z=6&t=hybrid
 
-
 ### Model
 * Sequalize postgis: https://sequelize.org/master/class/lib/data-types.js~GEOMETRY.html
+    * https://www.compose.com/articles/geofile-using-openstreetmap-data-in-compose-postgresql-part-ii/
+* Postgis
+    * http://www.postgis.fr/chrome/site/docs/workshop-foss4g/doc/geometries.html
+    * Conversion en multipolygon : https://postgis.net/docs/ST_Multi.html
+    
 * Utiliser les range type pour le début et fin d'évènement: https://sequelize.org/v5/manual/data-types.html
 
 
