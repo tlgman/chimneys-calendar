@@ -18,7 +18,7 @@ export class PageCreateZoneComponent implements OnInit {
   colorZone: string = '#000000';
   nameZone: string = '';
   constructor(
-    private drawingService: DrawingService,
+    // private drawingService: DrawingService,
     private zoneService: ZoneService
   ) {}
 
@@ -32,7 +32,8 @@ export class PageCreateZoneComponent implements OnInit {
   }
 
   onSubmit() {
-    const features = this.drawingService.getDrawnFeatures();
+    // const features = this.drawingService.getDrawnFeatures();
+    const features = [];
     if(!features.length) {
       // TODO ------------------------> Afficher l'erreur
       return;

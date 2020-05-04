@@ -1,6 +1,5 @@
 <div>
   <app-drawing-tool *ngIf="drawingToolEnabled && isMapInitialized"
-                    [map]="map"
                     [strokeColor]="drawingToolOptions.strokeColor"
   ></app-drawing-tool>
   <div id="map-{{uniqid}}" class="map"></div>
