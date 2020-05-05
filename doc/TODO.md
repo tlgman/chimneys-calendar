@@ -40,9 +40,11 @@
 * Optimiser le chargemnet des zones, pas forcément obligé de recharger à chaque fois toutes les zones
 
 ### Créer zone
+* DONE - Fix : Outils de dessin => Erreur si on essaye de supprimer une zone qu'on à pas créé
 * Création, demander à l'utilisateur s'il veut quitter
     * Utiliser les props de ngForm pour voir si le fomulaire a été modifé
-* Fix : Outils de dessin => Erreur si on essaye de supprimer une zone qu'on à pas créé
+* Mettre au premier plan les nouvelles feature, devant les couches déjà dessinées
+* Colorer la zone au déplacement
 
 ## Calendrier
 * Pouvoir consulter par semaine/jour/mois/année

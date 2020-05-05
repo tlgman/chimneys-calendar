@@ -9,7 +9,11 @@ import VectorLayer from "ol/layer/Vector";
 import {ColorUtilsService} from "../../utils/color-utils.service";
 import {Zone} from '../dashboard/pages/page-zones/zone.model';
 import {Injectable} from "@angular/core";
-import {DrawingService} from "./drawing-tool/drawing.service";
+import {BehaviorSubject, Observable, ReplaySubject} from "rxjs";
+import {Feature} from "ol";
+
+const DEFAULT_ZONE_OPACITY = 0.3;
+const DEFAULT_ZONE_STROKE_WIDTH = 3;
 
 @Injectable()
 export class MapService {
@@ -19,10 +23,11 @@ export class MapService {
    */
   zoneLayer: VectorLayer = null;
   zoneSource: VectorSource = null;
+  drawingLayer: VectorLayer = null;
+  private zonesFeatures: ReplaySubject<Feature[]> = new ReplaySubject<Feature[]>();
+  zoneFeaturesObs: Observable<Feature[]> = this.zonesFeatures.asObservable();
 
-  constructor(private colorUtils: ColorUtilsService) {
-    console.log('map unidid: ', Math.random().toString(36).substr(2, 9));
-  }
+  constructor(private colorUtils: ColorUtilsService) {}
 
   initMap() {
     this.map = new Map({
@@ -38,24 +43,37 @@ export class MapService {
     });
   }
 
+  /**
+   * Add drawing layer at in fist plan
+   * @param drawingLayer
+   */
+  addDrawingLayer(drawingLayer: VectorLayer) {
+    this.drawingLayer = drawingLayer;
+    this.drawingLayer.setZIndex(1);
+    this.map.addLayer(this.drawingLayer);
+  }
+
   addZones(zones: Zone[]) {
     this.addZoneLayer();
+    const zoneFeatures = [];
     zones.forEach(zone => {
-      console.log(this.colorUtils.hexToRgb(zone.color));
       const fillColor = this.colorUtils.hexToRgb(zone.color);
-      fillColor[3] = 0.3;
+      fillColor[3] = DEFAULT_ZONE_OPACITY;
       const zoneStyle = new Style({
         stroke: new Stroke({
-          width: 3,
+          width: DEFAULT_ZONE_STROKE_WIDTH,
           color: zone.color
         }),
         fill: new Fill({
           color: fillColor
         })
       });
-      zone.features.forEach(feature => feature.setStyle(zoneStyle));
-      this.zoneSource.addFeatures(zone.features);
+      zone.features.forEach(feature => {
+        feature.setStyle(zoneStyle);
+        zoneFeatures.push(feature);
+      });
     });
+    this.addZoneFeatures(zoneFeatures);
   }
 
   private addZoneLayer() {
@@ -65,6 +83,12 @@ export class MapService {
         source: this.zoneSource
       });
     }
+    this.zoneLayer.setZIndex(0);
     this.map.addLayer(this.zoneLayer)
+  }
+
+  private addZoneFeatures(features: Feature[]) {
+    this.zonesFeatures.next(features);
+    this.zoneSource.addFeatures(features);
   }
 }

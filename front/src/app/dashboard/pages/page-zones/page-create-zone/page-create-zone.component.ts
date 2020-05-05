@@ -32,8 +32,7 @@ export class PageCreateZoneComponent implements OnInit {
   }
 
   onSubmit() {
-    // const features = this.drawingService.getDrawnFeatures();
-    const features = [];
+    const features = this.map.drawingService.getDrawnFeatures();
     if(!features.length) {
       // TODO ------------------------> Afficher l'erreur
       return;

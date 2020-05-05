@@ -51,7 +51,7 @@ export class DrawingService {
     }
     this.drawingSource = new VectorSource();
     this.drawingLayer = this.createVectorLayer();
-    this.mapService.map.addLayer(this.drawingLayer);
+    this.mapService.addDrawingLayer(this.drawingLayer);
     this.snap = new Snap({source: this.drawingSource});
     this.draw = new Draw({
       source: this.drawingSource,
@@ -68,6 +68,7 @@ export class DrawingService {
       source: this.drawingSource,
       style: this.drawingLayer.getStyle()
     });
+    this.mapService.zoneFeaturesObs.subscribe(this.addSnapFeatures.bind(this));
   }
 
   changeMode(mode: Mode) {
@@ -146,5 +147,10 @@ export class DrawingService {
       // Set style to notify openlayers
       this.drawingLayer.setStyle(style);
     }
+  }
+
+  addSnapFeatures(features: Feature[]) {
+    console.log('add snap feature: ', features);
+    features.forEach(feature => this.snap.addFeature(feature));
   }
 }

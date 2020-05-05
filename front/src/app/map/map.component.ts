@@ -11,13 +11,14 @@ import VectorSource from "ol/source/Vector";
 import VectorLayer from "ol/layer/Vector";
 import {Zone} from '../dashboard/pages/page-zones/zone.model';
 import {MapService} from "./map.service";
+import {DrawingService} from "./drawing-tool/drawing.service";
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: MapService}]
+  providers: [{provide: MapService}, {provide: DrawingService}]
 })
 
 
@@ -28,7 +29,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   uniqid: string;
   isMapInitialized: boolean = false;
 
-  constructor(private mapService: MapService, private cdr: ChangeDetectorRef) { }
+  constructor(private mapService: MapService, private cdr: ChangeDetectorRef, public drawingService: DrawingService) { }
 
   ngOnInit(): void {
     this.generateUniqId();

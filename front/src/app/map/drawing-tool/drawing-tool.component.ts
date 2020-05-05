@@ -14,8 +14,7 @@ import {MapService} from "../map.service";
 @Component({
   selector: 'app-drawing-tool',
   templateUrl: './drawing-tool.component.html',
-  styleUrls: ['./drawing-tool.component.scss'],
-  providers: [{provide: DrawingService}]
+  styleUrls: ['./drawing-tool.component.scss']
 })
 
 export class DrawingToolComponent implements OnInit, OnDestroy {
