@@ -17,6 +17,8 @@ export class PageCreateZoneComponent implements OnInit {
   @ViewChild('map') map: MapComponent;
   colorZone: string = '#000000';
   nameZone: string = '';
+  days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
+  displayDays: number = 5;
   constructor(private zoneService: ZoneService) {}
 
   ngOnInit(): void {

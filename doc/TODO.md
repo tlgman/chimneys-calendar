@@ -53,6 +53,7 @@
 * Afficher les weekends seulement si rdv
 * Sélectionner automatiquement le jour le prochain jour le plus près affichable : 
     * ex : si on est le weekend, on met selectionne le lundi
+* Utiliser la fonctionnalité "group similar events" pour afficher les nombre de rdv chanque jour en afficahge mois 
 
 ##Map
 * Trouver un moyen pour garder la même instance de la map (le même composant), tout le backend
@@ -84,6 +85,9 @@
 * consulter client
 
 # Design / UX
+
+## Calendrier
+* Centrer l'affichage de la date par rapport aux boutons
 
 ## Créer une zone
 * Affichage des jours toujours sur un ligne

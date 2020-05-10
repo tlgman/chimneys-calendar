@@ -11,8 +11,23 @@
     <app-recurring-form></app-recurring-form>
   </div>
   <div class="col-lg-6">
-    Calendar
-    <app-calendar></app-calendar>
+    <ng-template #headerCalendar>
+      <div role="row" class="cal-day-headers">
+        <ng-container *ngFor="let day of days; let i = index">
+          <div *ngIf="i < displayDays"
+              mwldroppable=""
+              dragoverclass="cal-drag-over"
+              tabindex="0"
+              role="columnheader"
+              class="cal-header cal-past"
+              ng-reflect-drag-over-class="cal-drag-over">
+            <b>{{day}}</b>
+          </div>
+        </ng-container>
+
+      </div>
+    </ng-template>
+    <app-calendar [headerWeekTemplate]="headerCalendar"></app-calendar>
   </div>
 </div>
 

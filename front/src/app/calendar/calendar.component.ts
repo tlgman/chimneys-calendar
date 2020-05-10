@@ -1,4 +1,11 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component,} from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  Input,
+  TemplateRef,
+  ViewChild, ViewChildren,
+} from '@angular/core';
 // import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
@@ -6,27 +13,12 @@ import {
   CalendarDateFormatter,
   CalendarEventTimesChangedEvent,
   CalendarView,
-  DAYS_OF_WEEK
+  DAYS_OF_WEEK, CalendarWeekViewComponent
 } from 'angular-calendar';
 import {addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
 // import {fr} from 'date-fns/locale'
 import {Subject} from 'rxjs';
 import {CustomDateFormatter} from "./custom-date-formatter.provider";
-
-const colors: any = {
-  red: {
-    primary: '#ad2121',
-    secondary: '#FAE3E3',
-  },
-  blue: {
-    primary: '#1e90ff',
-    secondary: '#D1E8FF',
-  },
-  yellow: {
-    primary: '#e3bc08',
-    secondary: '#FDF1BA',
-  }
-};
 
 @Component({
   selector: 'app-calendar',
@@ -50,21 +42,23 @@ export class CalendarComponent {
   view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
-
+  @Input('events') events: CalendarEvent[] = [];
+  @Input('headerWeekTemplate') headerWeek: TemplateRef<any>;
   modalData: {
     action: string;
     event: CalendarEvent;
   };
 
-  actions: CalendarEventAction[] = [
-    {
+
+  actions: {[key: string]: CalendarEventAction}= {
+    edit: {
       label: '<i class="fas fa-fw fa-pencil-alt"></i>',
       a11yLabel: 'Edit',
       onClick: ({ event }: { event: CalendarEvent }): void => {
         this.handleEvent('Edited', event);
       },
     },
-    {
+    delete: {
       label: '<i class="fas fa-fw fa-trash-alt"></i>',
       a11yLabel: 'Delete',
       onClick: ({ event }: { event: CalendarEvent }): void => {
@@ -72,50 +66,9 @@ export class CalendarComponent {
         this.handleEvent('Deleted', event);
       },
     },
-  ];
+  };
 
   refresh: Subject<any> = new Subject();
-
-  events: CalendarEvent[] = [
-    {
-      start: startOfDay(new Date()),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions,
-      allDay: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions,
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue,
-      allDay: true,
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: addHours(new Date(), 2),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true,
-      },
-      draggable: true,
-    },
-  ];
 
   activeDayIsOpen: boolean = true;
 
@@ -166,7 +119,7 @@ export class CalendarComponent {
         title: 'New event',
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
-        color: colors.red,
+        // color: colors.red,
         draggable: true,
         resizable: {
           beforeStart: true,

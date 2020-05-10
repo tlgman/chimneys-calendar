@@ -8,3 +8,28 @@ h6.zone-title {
   font-style: italic;
   color: #4c4c4c;
 }
+
+
+.cal-week-view .cal-day-headers .cal-header:first-child {
+  border-left-color: #e1e1e1;
+}
+
+.cal-week-view .cal-day-headers .cal-header:not(:last-child) {
+  border-right-color: #e1e1e1;
+}
+.cal-week-view .cal-day-headers .cal-header:first-child {
+  border-left: 1px solid;
+}
+.cal-week-view .cal-day-headers .cal-header:not(:last-child) {
+  border-right: 1px solid;
+}
+.cal-week-view .cal-day-headers .cal-header {
+  flex: 1;
+  text-align: center;
+  padding: 5px;
+}
+.cal-week-view .cal-event, .cal-week-view .cal-header {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

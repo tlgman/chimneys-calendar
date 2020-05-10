@@ -7,7 +7,9 @@
     * https://www.youtube.com/watch?time_continue=840&v=pxo7L5nd1gA&feature=emb_title
 
 * Pour l'affichage du choix des créneaux: s'inspirer de doctolib
-* Exemple de calendrier : https://angular-calendar.com/#/kitchen-sink
+* Exemple de calendrier : 
+    * https://angular-calendar.com/#/kitchen-sink
+    * Demo payment : https://fullcalendar.io/
 * Exemple de dashboard : 
     * BEST : https://colorlib.com/polygon/gentelella/
     * https://templatemag.com/demo/templates/Dashio/general.html
