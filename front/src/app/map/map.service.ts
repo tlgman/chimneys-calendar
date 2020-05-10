@@ -25,6 +25,9 @@ export class MapService {
   zoneSource: VectorSource = null;
   drawingLayer: VectorLayer = null;
   private zonesFeatures: ReplaySubject<Feature[]> = new ReplaySubject<Feature[]>();
+  /**
+   * Observale, change when zone added to map
+   */
   zoneFeaturesObs: Observable<Feature[]> = this.zonesFeatures.asObservable();
 
   constructor(private colorUtils: ColorUtilsService) {}

@@ -1,0 +1,49 @@
+
+input[type=time] {
+  width: 100px;
+}
+
+.recurring-metric {
+  width: 90px;
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+
+#recurring-number-input {
+  width: 60px;
+  margin-left: 5px;
+  margin-right: 5px;
+
+  &::-webkit-inner-spin-button {
+    width: 14px;
+    height: 30px;
+  }
+}
+
+div.list-choose-day {
+  list-style-type: none;
+
+  .day-choice {
+    float: left;
+    margin: 5px 10px;
+    background-color: #ebecec;
+    padding: 1px 15px;
+    border-radius: 50px;
+    /* text-align: center; */
+    display: block;
+    cursor: pointer;
+    color: #5f6367;
+    font-weight: 500;
+
+    &.active {
+      background-color: #1a73e8;
+      color: white;
+    }
+  }
+}
+
+.interval-hour-input-group input {
+  margin: 0 8px;
+}
+

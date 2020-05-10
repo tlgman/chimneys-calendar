@@ -82,3 +82,11 @@
 ## Client
 * consulter liste (avec dernières adresses)
 * consulter client
+
+# Design / UX
+
+## Créer une zone
+* Affichage des jours toujours sur un ligne
+* Time picker pour les jours les heurs
+* Adapter textes pour jours ("tous les") et ajouter un 's' ou non pour le choix de la métric (semaines, jours)
+ 

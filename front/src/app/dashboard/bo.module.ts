@@ -13,6 +13,7 @@ import {MapModule} from "../map/map.module";
 import { PageCalendarComponent } from './pages/page-calendar/page-calendar.component';
 import { CalendarModule } from '../calendar/calendar.module';
 import { PageCreateZoneComponent } from './pages/page-zones/page-create-zone/page-create-zone.component';
+import { RecurringFormComponent } from './forms/recurring-form/recurring-form.component';
 
 
 @NgModule({
@@ -24,6 +25,7 @@ import { PageCreateZoneComponent } from './pages/page-zones/page-create-zone/pag
     PageZonesComponent,
     PageCalendarComponent,
     PageCreateZoneComponent,
+    RecurringFormComponent,
   ],
   imports: [
     CommonModule,

@@ -6,6 +6,16 @@
     [drawing-tool-options]="{strokeColor: colorZone}"
     #map
 ></app-map>
+<div class="row">
+  <div class="col-lg-6">
+    <app-recurring-form></app-recurring-form>
+  </div>
+  <div class="col-lg-6">
+    Calendar
+    <app-calendar></app-calendar>
+  </div>
+</div>
+
 
 <form (ngSubmit)="onSubmit()" #createZoneForm="ngForm">
   <p>Numéro: ##</p>

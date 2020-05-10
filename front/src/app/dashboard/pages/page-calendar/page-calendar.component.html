@@ -1,4 +1,15 @@
 <h2>Calendrier</h2>
 <div>
-  <app-calendar></app-calendar>
+  <div class="row row-controls">
+    <div class="col-md-4 d-flex justify-content-start">
+      <calendar-move-control [calendar]="calendar"></calendar-move-control>
+    </div>
+    <div class="col-md-4 d-flex justify-content-center">
+      <calendar-selected-date [calendar]="calendar"></calendar-selected-date>
+    </div>
+    <div class="col-md-4 d-flex justify-content-end">
+      <calendar-mode-control [calendar]="calendar"></calendar-mode-control>
+    </div>
+  </div>
+  <app-calendar #calendar></app-calendar>
 </div>

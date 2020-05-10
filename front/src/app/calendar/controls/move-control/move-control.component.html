@@ -1,0 +1,26 @@
+<div class="btn-group">
+  <div
+      class="btn btn-primary"
+      mwlCalendarPreviousView
+      [view]="calendar.view"
+      [(viewDate)]="date"
+      (viewDateChange)="dateChange($event)"
+  >
+    Précédent
+  </div>
+  <div
+      class="btn btn-outline-secondary"
+      (click)="setToDay()"
+  >
+    Aujourd'hui
+  </div>
+  <div
+      class="btn btn-primary"
+      mwlCalendarNextView
+      [view]="calendar.view"
+      [(viewDate)]="date"
+      (viewDateChange)="dateChange($event)"
+  >
+    Suivant
+  </div>
+</div>

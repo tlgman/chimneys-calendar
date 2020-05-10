@@ -17,10 +17,7 @@ export class PageCreateZoneComponent implements OnInit {
   @ViewChild('map') map: MapComponent;
   colorZone: string = '#000000';
   nameZone: string = '';
-  constructor(
-    // private drawingService: DrawingService,
-    private zoneService: ZoneService
-  ) {}
+  constructor(private zoneService: ZoneService) {}
 
   ngOnInit(): void {
     this.zoneService.fetch()

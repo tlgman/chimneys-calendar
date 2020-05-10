@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component,} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component,} from '@angular/core';
 // import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
@@ -120,7 +120,7 @@ export class CalendarComponent {
   activeDayIsOpen: boolean = true;
 
   // constructor(private modal: NgbModal) {}
-  constructor() {}
+  constructor(private cdr: ChangeDetectorRef) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -180,11 +180,17 @@ export class CalendarComponent {
     this.events = this.events.filter((event) => event !== eventToDelete);
   }
 
-  setView(view: CalendarView) {
-    this.view = view;
-  }
-
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+  }
+
+  changeDate(date: Date) {
+    this.viewDate = date;
+    this.cdr.detectChanges();
+  }
+
+  changeView(view: CalendarView) {
+    this.view = view;
+    this.cdr.detectChanges();
   }
 }
