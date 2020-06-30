@@ -6,9 +6,10 @@
     [drawing-tool-options]="{strokeColor: colorZone}"
     #map
 ></app-map>
+
 <div class="row">
   <div class="col-lg-6">
-    <app-recurring-form></app-recurring-form>
+    <app-recurring-form #recurringForm (selectedDay)="onSelectDay($event)" (unselectedDay)="onUnselectDay($event)"></app-recurring-form>
   </div>
   <div class="col-lg-6">
     <ng-template #headerCalendar>
@@ -27,7 +28,12 @@
 
       </div>
     </ng-template>
-    <app-calendar [headerWeekTemplate]="headerCalendar"></app-calendar>
+    <app-calendar
+      #calendar
+      [headerWeekTemplate]="headerCalendar"
+      (eventChanged)="onCalendarEventChange($event)"
+    >
+    </app-calendar>
   </div>
 </div>
 

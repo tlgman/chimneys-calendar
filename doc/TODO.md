@@ -13,6 +13,7 @@
     * https://medium.com/@smallbee/how-to-use-sequelize-sync-without-difficulties-4645a8d96841
   
 ## Features
+* Plusieurs zone sur le même horaire => Superposition de zone 
 * Prendre un rendez-vous à une horaire
 * Envoyer un mail de confirmation
     * Enregistre ip pour le rdv (faire attention aux faux comptes)

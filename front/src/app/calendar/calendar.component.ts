@@ -1,8 +1,8 @@
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  Component,
-  Input,
+  Component, EventEmitter,
+  Input, Output,
   TemplateRef,
   ViewChild, ViewChildren,
 } from '@angular/core';
@@ -44,6 +44,9 @@ export class CalendarComponent {
   viewDate: Date = new Date();
   @Input('events') events: CalendarEvent[] = [];
   @Input('headerWeekTemplate') headerWeek: TemplateRef<any>;
+  @Output('eventChanged') eventChanged: EventEmitter<{oldEvent: CalendarEvent, newEvent: CalendarEvent}>
+    = new EventEmitter<{oldEvent: CalendarEvent, newEvent: CalendarEvent}>();
+
   modalData: {
     action: string;
     event: CalendarEvent;
@@ -96,11 +99,13 @@ export class CalendarComponent {
                     }: CalendarEventTimesChangedEvent): void {
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
-        return {
+        const newEvent = {
           ...event,
           start: newStart,
           end: newEnd,
         };
+        this.eventChanged.emit({oldEvent: event, newEvent});
+        return newEvent;
       }
       return iEvent;
     });
@@ -112,25 +117,18 @@ export class CalendarComponent {
     // this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
+  addEvent(event: CalendarEvent): CalendarEvent {
     this.events = [
       ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        // color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
+      event
     ];
+    this.cdr.detectChanges();
+    return event;
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);
+    this.cdr.detectChanges();
   }
 
   closeOpenMonthViewDay() {

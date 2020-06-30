@@ -12,7 +12,7 @@
   </div>
 
   <div class="list-choose-day">
-    <div *ngFor="let day of days" class="day-choice" [ngClass]="{'active': day.selected}" (click)="chooseDay(day)">{{day.locale}}</div>
+    <div *ngFor="let day of days" class="day-choice" [ngClass]="{'active': day.selected}" (click)="clickDay(day)">{{day.locale}}</div>
   </div>
   <div class="clearfix"></div>
   <div class="form-inline">
