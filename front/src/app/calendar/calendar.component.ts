@@ -144,4 +144,9 @@ export class CalendarComponent {
     this.view = view;
     this.cdr.detectChanges();
   }
+
+  changeEventColor(event: CalendarEvent, color: {primary: string, secondary: string}) {
+    event.color = color;
+    this.cdr.detectChanges();
+  }
 }

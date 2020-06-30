@@ -91,7 +91,10 @@
 * Centrer l'affichage de la date par rapport aux boutons
 
 ## Créer une zone
+* Déplacer le timepicker en fonction du jour actuellmement sélectionné
+* Ajouter un jour dans le calendrier si un ou 2 jours du weekend est sélectionné
+* Pouvoir spliter un évènement en 2
+* Bug si on agrendit un évènement jusqu'au lendemain 
 * Affichage des jours toujours sur un ligne
-* Time picker pour les jours les heurs
 * Adapter textes pour jours ("tous les") et ajouter un 's' ou non pour le choix de la métric (semaines, jours)
  

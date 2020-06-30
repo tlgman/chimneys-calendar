@@ -9,17 +9,19 @@ import {DayValue, RecurringFormComponent} from "../../../forms/recurring-form/re
 import {CalendarComponent} from "../../../../calendar/calendar.component";
 
 
+const DEFAULT_EVENT_PRIMARY_COLOR = '#1e90ff';
+
 @Component({
   selector: 'app-page-create-zone',
   templateUrl: './page-create-zone.component.html',
   styleUrls: ['./page-create-zone.component.scss']
 })
 export class PageCreateZoneComponent implements OnInit {
-  @ViewChild('createZoneForm') zoneForm: NgForm;
-  @ViewChild('map') map: MapComponent;
-  @ViewChild('calendar') calendar: CalendarComponent;
-  @ViewChild('recurringForm') recurringForm: RecurringFormComponent;
-  colorZone: string = '#000000';
+  @ViewChild('createZoneForm', {static: false}) zoneForm: NgForm;
+  @ViewChild('map', {static: false}) map: MapComponent;
+  @ViewChild('calendar', {static: false}) calendar: CalendarComponent;
+  @ViewChild('recurringForm', {static: false}) recurringForm: RecurringFormComponent;
+  private _colorZone: string = '#d1e8ff';
   nameZone: string = '';
   days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
   displayDays: number = 5;
@@ -36,6 +38,15 @@ export class PageCreateZoneComponent implements OnInit {
       });
   }
 
+  get colorZone() {
+    return this._colorZone;
+  }
+
+  set colorZone(value: string) {
+    this._colorZone = value;
+    this.changeEventsColor(value);
+  }
+
   /**
    * To find corresponding date of the given day
    * @param dayValue
@@ -46,10 +57,13 @@ export class PageCreateZoneComponent implements OnInit {
     const endEvent = setMinutes(setHours(dateDaySelected, 8), 30);
     const event = this.calendar.addEvent(
       {
-        title: 'New event',
+        title: 'Zone # de hh à hh',
         start: startEvent,
         end: endEvent,
-        // color: colors.red,
+        color: {
+          primary: DEFAULT_EVENT_PRIMARY_COLOR,
+          secondary: this._colorZone
+        },
         draggable: true,
         resizable: {
           beforeStart: true,
@@ -58,8 +72,6 @@ export class PageCreateZoneComponent implements OnInit {
       },
     );
     this.dayEventsMap.set(dayValue, event);
-
-    console.log('day selected:', dayValue);
   }
 
   onUnselectDay(dayValue) {
@@ -89,6 +101,17 @@ export class PageCreateZoneComponent implements OnInit {
       this.dayEventsMap.delete(dayValueOldEvent);
       this.recurringForm.selectDay(dayValueNewEvent);
       this.dayEventsMap.set(dayValueNewEvent, newEvent);
+    }
+  }
+
+  /**
+   * Change color for all created events for this zone
+   * @param color
+   */
+  changeEventsColor(color: string) {
+    const entries = this.dayEventsMap.entries();
+    for(const [, event] of Array.from(entries)) {
+      this.calendar.changeEventColor(event, {primary: DEFAULT_EVENT_PRIMARY_COLOR, secondary: color});
     }
   }
 
