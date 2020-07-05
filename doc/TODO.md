@@ -95,6 +95,7 @@
 * Ajouter un jour dans le calendrier si un ou 2 jours du weekend est sélectionné
 * Pouvoir spliter un évènement en 2
 * Bug si on agrendit un évènement jusqu'au lendemain 
+* Interdire l'évènement de calendriier d'être supperposé avec des event de la **même** zone
 * Affichage des jours toujours sur un ligne
 * Adapter textes pour jours ("tous les") et ajouter un 's' ou non pour le choix de la métric (semaines, jours)
  

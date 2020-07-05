@@ -1,12 +1,12 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Zone} from '../zone.model';
-import {CalendarEvent} from 'angular-calendar';
+import {CalendarEvent, CalendarEventTimesChangedEvent} from 'angular-calendar';
 import {ZoneService} from "../zone.service";
 import {MapComponent} from "../../../../map/map.component";
 import {startOfWeek, addDays, startOfDay, setHours, setMinutes, getDay, getISODay} from 'date-fns';
 import {DayValue, RecurringFormComponent} from "../../../forms/recurring-form/recurring-form.component";
-import {CalendarComponent} from "../../../../calendar/calendar.component";
+import {CalendarComponent, EventCalendarChangeState} from "../../../../calendar/calendar.component";
 
 
 const DEFAULT_EVENT_PRIMARY_COLOR = '#1e90ff';
@@ -22,10 +22,13 @@ export class PageCreateZoneComponent implements OnInit {
   @ViewChild('calendar', {static: false}) calendar: CalendarComponent;
   @ViewChild('recurringForm', {static: false}) recurringForm: RecurringFormComponent;
   private _colorZone: string = '#d1e8ff';
+  selectedEvent: CalendarEvent;
   nameZone: string = '';
   days = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche'];
   displayDays: number = 5;
   dayEventsMap: Map<DayValue, CalendarEvent> = new Map();
+  startEventHour: string = "";
+  endEventHour: string;
 
   constructor(private zoneService: ZoneService) {}
 
@@ -115,6 +118,40 @@ export class PageCreateZoneComponent implements OnInit {
     }
   }
 
+  selectedEventChanged(eventChanges: EventCalendarChangeState) {
+    if(eventChanges.oldEvent) {
+      this.calendar.changeEventColor(eventChanges.oldEvent, {
+        primary: DEFAULT_EVENT_PRIMARY_COLOR,
+        secondary: (eventChanges.oldEvent as CalendarEvent).color.secondary});
+    }
+    this.selectedEvent = eventChanges.newEvent;
+    console.log('selected event change !!', this.selectedEvent);
+    this.recurringForm.setHoursMinutesFromDates(this.selectedEvent.start, this.selectedEvent.end);
+    this.calendar.changeEventColor(this.selectedEvent, {primary: 'black', secondary: this.selectedEvent.color.secondary});
+  }
+
+  startHourChange(hoursMinutes: string) {
+    if(this.selectedEvent) {
+      const [hours, minutes] = this.hoursMinutesStringToInt(hoursMinutes);
+      const newStart = setMinutes(setHours(this.selectedEvent.start, hours), minutes);
+      this.calendar.setEventTime({event: this.selectedEvent, newStart, newEnd: this.selectedEvent.end});
+    }
+  }
+
+  endHourChange(hoursMinutes: string) {
+    if(this.selectedEvent) {
+      const [hours, minutes] = this.hoursMinutesStringToInt(hoursMinutes);
+      const newEnd = setMinutes(setHours(this.selectedEvent.end, hours), minutes);
+      this.calendar.setEventTime({event: this.selectedEvent, newStart: this.selectedEvent.start, newEnd});
+    }
+  }
+
+  /**
+   * convert '08:11' => [8,11]
+   */
+  private hoursMinutesStringToInt(hoursMinutes: string) {
+    return hoursMinutes.split(':').map(unite => parseInt(unite, 10));
+  }
 
   onSubmit() {
     const features = this.map.drawingService.getDrawnFeatures();

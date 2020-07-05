@@ -9,7 +9,14 @@
 
 <div class="row">
   <div class="col-lg-6">
-    <app-recurring-form #recurringForm (selectedDay)="onSelectDay($event)" (unselectedDay)="onUnselectDay($event)"></app-recurring-form>
+    <app-recurring-form
+      #recurringForm
+      (selectedDay)="onSelectDay($event)"
+      (unselectedDay)="onUnselectDay($event)"
+      (startHourChange)="startHourChange($event)"
+      (endHourChange)="endHourChange($event)"
+      >
+    </app-recurring-form>
   </div>
   <div class="col-lg-6">
     <ng-template #headerCalendar>
@@ -32,6 +39,7 @@
       #calendar
       [headerWeekTemplate]="headerCalendar"
       (eventChanged)="onCalendarEventChange($event)"
+      (selectedEventChanged)="selectedEventChanged($event)"
     >
     </app-calendar>
   </div>

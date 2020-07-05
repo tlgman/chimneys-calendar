@@ -20,13 +20,14 @@ import {addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOf
 import {Subject} from 'rxjs';
 import {CustomDateFormatter} from "./custom-date-formatter.provider";
 
+export type EventCalendarChangeState = {oldEvent: CalendarEvent, newEvent: CalendarEvent};
+
 @Component({
   selector: 'app-calendar',
   changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['calendar.component.scss'],
   templateUrl: 'calendar.component.html',
-  providers: [
-    {
+  providers: [{
       provide: CalendarDateFormatter,
       useClass: CustomDateFormatter,
     },
@@ -42,10 +43,14 @@ export class CalendarComponent {
   view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
+  // Current seleted event
+  selectedEvent: CalendarEvent;
   @Input('events') events: CalendarEvent[] = [];
   @Input('headerWeekTemplate') headerWeek: TemplateRef<any>;
-  @Output('eventChanged') eventChanged: EventEmitter<{oldEvent: CalendarEvent, newEvent: CalendarEvent}>
-    = new EventEmitter<{oldEvent: CalendarEvent, newEvent: CalendarEvent}>();
+  @Output('eventChanged') eventChanged: EventEmitter<EventCalendarChangeState>
+    = new EventEmitter<EventCalendarChangeState>();
+  @Output('selectedEventChanged') selectedEventChanged: EventEmitter<EventCalendarChangeState>
+    = new EventEmitter<EventCalendarChangeState>();
 
   modalData: {
     action: string;
@@ -92,29 +97,68 @@ export class CalendarComponent {
     }
   }
 
+  /**
+   * Change time and call handleEvent
+   * @param event
+   * @param newStart
+   * @param newEnd
+   */
   eventTimesChanged({
                       event,
                       newStart,
                       newEnd,
                     }: CalendarEventTimesChangedEvent): void {
+    const newEvent = this.setEventTime({event, newStart, newEnd})
+    this.handleEvent('Dropped or resized', newEvent);
+  }
+
+  handleEvent(action: string, event: CalendarEvent): void {
+    // If new event is selected
+    if(event !== this.selectedEvent) {
+      this.selectedEventChanged.emit({
+        oldEvent: this.selectedEvent,
+        newEvent: event
+      });
+      this.selectedEvent = event;
+    }
+    // this.modalData = { event, action };
+    // this.modal.open(this.modalContent, { size: 'lg' });
+  }
+
+  /**
+   * Change time of an event
+   * @param event
+   * @param newStart
+   * @param newEnd
+   * @return Create event
+   */
+  setEventTime({
+                 event,
+                 newStart,
+                 newEnd,
+               }): CalendarEvent {
+    let newEvent = event;
     this.events = this.events.map((iEvent) => {
       if (iEvent === event) {
-        const newEvent = {
+        newEvent = {
           ...event,
           start: newStart,
           end: newEnd,
         };
+        // If selectedEvent is modified
+        if (event === this.selectedEvent) {
+          this.selectedEventChanged.emit({
+            oldEvent: this.selectedEvent,
+            newEvent: newEvent
+          });
+          this.selectedEvent = newEvent;
+        }
         this.eventChanged.emit({oldEvent: event, newEvent});
         return newEvent;
       }
       return iEvent;
     });
-    this.handleEvent('Dropped or resized', event);
-  }
-
-  handleEvent(action: string, event: CalendarEvent): void {
-    this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
+    return newEvent;
   }
 
   addEvent(event: CalendarEvent): CalendarEvent {
@@ -147,6 +191,10 @@ export class CalendarComponent {
 
   changeEventColor(event: CalendarEvent, color: {primary: string, secondary: string}) {
     event.color = color;
+    this.cdr.detectChanges();
+  }
+
+  detectChange() {
     this.cdr.detectChanges();
   }
 }

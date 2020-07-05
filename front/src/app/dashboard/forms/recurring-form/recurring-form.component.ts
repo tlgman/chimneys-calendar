@@ -1,4 +1,5 @@
 import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
+import {format} from 'date-fns';
 
 export enum DayValue {
   MONDAY = 0,
@@ -26,6 +27,10 @@ type Day = {value: DayValue, locale: string, selected: boolean};
 export class RecurringFormComponent implements OnInit {
   @Output('selectedDay') selectedDay: EventEmitter<DayValue> = new EventEmitter<DayValue>();
   @Output('unselectedDay') unselectedDay: EventEmitter<DayValue> = new EventEmitter<DayValue>();
+  @Output('startHourChange') startHourChange: EventEmitter<string> = new EventEmitter<string>();
+  @Output('endHourChange') endHourChange: EventEmitter<string> = new EventEmitter<string>();
+  @Input('startHour') startHour: string;
+  @Input('endHour') endHour: string;
 
   days: Day[] = [
     {value: DayValue.MONDAY, locale: 'Lun', selected: false},
@@ -59,11 +64,26 @@ export class RecurringFormComponent implements OnInit {
     this.daySelection(dayValue, false);
   }
 
+  onStartHourChange(event : Event) {
+    this.startHour = (event.target as HTMLInputElement).value;
+    this.startHourChange.emit(this.startHour);
+  }
+
+  onEndHourChange(event: Event) {
+    this.endHour = (event.target as HTMLInputElement).value;
+    this.endHourChange.emit(this.endHour);
+  }
+
   private daySelection(dayValue: DayValue, selection: boolean) {
     const day = this.days.find(day => day.value === dayValue);
     if(day) {
       day.selected = selection;
     }
+  }
+
+  setHoursMinutesFromDates(start: Date, end: Date) {
+    this.startHour = format(start, 'hh:mm');
+    this.endHour = format(end, 'hh:mm');
   }
 
 }
