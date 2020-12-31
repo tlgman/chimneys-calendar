@@ -7,44 +7,6 @@
     #map
 ></app-map>
 
-<div class="row">
-  <div class="col-lg-6">
-    <app-recurring-form
-      #recurringForm
-      (selectedDay)="onSelectDay($event)"
-      (unselectedDay)="onUnselectDay($event)"
-      (startHourChange)="startHourChange($event)"
-      (endHourChange)="endHourChange($event)"
-      >
-    </app-recurring-form>
-  </div>
-  <div class="col-lg-6">
-    <ng-template #headerCalendar>
-      <div role="row" class="cal-day-headers">
-        <ng-container *ngFor="let day of days; let i = index">
-          <div *ngIf="i < displayDays"
-              mwldroppable=""
-              dragoverclass="cal-drag-over"
-              tabindex="0"
-              role="columnheader"
-              class="cal-header cal-past"
-              ng-reflect-drag-over-class="cal-drag-over">
-            <b>{{day}}</b>
-          </div>
-        </ng-container>
-
-      </div>
-    </ng-template>
-    <app-calendar
-      #calendar
-      [headerWeekTemplate]="headerCalendar"
-      (eventChanged)="onCalendarEventChange($event)"
-      (selectedEventChanged)="selectedEventChanged($event)"
-    >
-    </app-calendar>
-  </div>
-</div>
-
 
 <form (ngSubmit)="onSubmit()" #createZoneForm="ngForm">
   <p>Numéro: ##</p>
@@ -67,10 +29,6 @@
       name="name"
       [(ngModel)]="nameZone"
     >
-  </div>
-  <div class="form-group">
-    <label for="zone-start-input"></label>
-    <input id="zone-start-input" class="form-control" type="date">
   </div>
 
   <input type="submit" class="btn btn-primary" value="Ajouter">

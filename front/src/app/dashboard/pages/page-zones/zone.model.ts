@@ -1,5 +1,4 @@
 import {Feature} from 'ol';
-import {GeoJSONGeometry} from "ol/format/GeoJSON";
 
 export interface Zone {
   id: number;

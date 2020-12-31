@@ -14,7 +14,7 @@ import { PageCalendarComponent } from './pages/page-calendar/page-calendar.compo
 import { CalendarModule } from '../calendar/calendar.module';
 import { PageCreateZoneComponent } from './pages/page-zones/page-create-zone/page-create-zone.component';
 import { RecurringFormComponent } from './forms/recurring-form/recurring-form.component';
-
+import { DateFnsModule } from 'ngx-date-fns';
 
 @NgModule({
   declarations: [
@@ -33,7 +33,9 @@ import { RecurringFormComponent } from './forms/recurring-form/recurring-form.co
     HttpClientModule,
     BoRoutingModule,
     MapModule,
-    CalendarModule
+    CalendarModule,
+    // To use date-fns in template
+    DateFnsModule.forRoot()
   ]
 })
 export class BoModule { }

@@ -21,6 +21,8 @@
       [refresh]="refresh"
       (eventClicked)="handleEvent('Clicked', $event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
+      (hourSegmentClicked)="hourSegmentClicked($event)"
+      [hourSegmentTemplate]="hourSegment"
       [dayStartHour]="6"
       [dayEndHour]="19"
       [hourSegmentHeight]="25"

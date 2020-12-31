@@ -6,9 +6,6 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-import Map from 'ol/Map';
-import VectorSource from "ol/source/Vector";
-import VectorLayer from "ol/layer/Vector";
 import {Zone} from '../dashboard/pages/page-zones/zone.model';
 import {MapService} from "./map.service";
 import {DrawingService} from "./drawing-tool/drawing.service";
@@ -18,7 +15,7 @@ import {DrawingService} from "./drawing-tool/drawing.service";
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{provide: MapService}, {provide: DrawingService}]
+  providers: [{ provide: MapService }, { provide: DrawingService }]
 })
 
 

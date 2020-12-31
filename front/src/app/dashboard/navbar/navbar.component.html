@@ -2,6 +2,14 @@
   <ul class="sidebar-menu">
     <li class="sub-menu"><app-submenu link="/dashboard" [activeLinkOptionExact]="true">Accueil</app-submenu></li>
     <li class="sub-menu"><app-submenu link="calendar">Calendrier</app-submenu></li>
+    <app-submenu
+        title="Disponibilités par zone en fonction de la date et de l'heure "
+        link="zones"
+        [activeLinkOptionExact]="true"
+        [childs]="[{title: 'Ajouter', link: 'zones/create'}]"
+    >
+      Disponibilités par zone
+    </app-submenu>
     <li class="sub-menu">
       <app-submenu
           link="zones"

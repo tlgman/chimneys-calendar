@@ -46,6 +46,7 @@ export class CalendarComponent {
   // Current seleted event
   selectedEvent: CalendarEvent;
   @Input('events') events: CalendarEvent[] = [];
+  @Input('hourSegmentTemplate') hourSegment: TemplateRef<any>;
   @Input('headerWeekTemplate') headerWeek: TemplateRef<any>;
   @Output('eventChanged') eventChanged: EventEmitter<EventCalendarChangeState>
     = new EventEmitter<EventCalendarChangeState>();
@@ -171,7 +172,7 @@ export class CalendarComponent {
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter((event) => event !== eventToDelete);
+    this.events = this.events.filter(event => event !== eventToDelete);
     this.cdr.detectChanges();
   }
 
@@ -192,6 +193,14 @@ export class CalendarComponent {
   changeEventColor(event: CalendarEvent, color: {primary: string, secondary: string}) {
     event.color = color;
     this.cdr.detectChanges();
+  }
+
+  /**
+   * When user click on empty hour cell
+   * @param event
+   */
+  hourSegmentClicked(event) {
+    console.log('Création nouvel event: ', event);
   }
 
   detectChange() {

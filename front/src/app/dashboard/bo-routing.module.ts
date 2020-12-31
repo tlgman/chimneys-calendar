@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: '', component: DashboardComponent, children: [
     {path: 'zones', component: PageZonesComponent},
     {path: 'zones/create', component: PageCreateZoneComponent},
-    {path: 'calendar', component: PageCalendarComponent}
+    {path: 'calendar', component: PageCalendarComponent},
   ]},
 
 ];
