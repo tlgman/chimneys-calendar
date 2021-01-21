@@ -1,0 +1,14 @@
+<h3>Prendre un rendez-vous</h3>
+
+<label for="user-address">Entrez votre adresse :</label><br>
+<span class="search-address-input-container p-input-icon-left p-input-icon-right">
+    <i class="pi pi-search"></i>
+    <input type="text" id="user-address"
+           class="search-address-input"
+           pInputText
+           placeholder="Entrez votre adresse"
+           (input)="onSearchAddressChange($event)"
+    >
+    <i class="pi pi-map-marker"></i>
+</span>
+<app-map></app-map>

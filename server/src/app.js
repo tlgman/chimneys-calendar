@@ -25,7 +25,7 @@ if(config.get('env') === 'development') {
 }
 
 app.use(express.json());
-// For logging requests
+// To logging requests
 app.use(morganLogger);
 
 // Init routes

@@ -6,7 +6,7 @@ import {
   Input,
   OnInit
 } from '@angular/core';
-import {Zone} from '../dashboard/pages/page-zones/zone.model';
+import {Zone} from '../dashboard/pages/zone.model';
 import {MapService} from "./map.service";
 import {DrawingService} from "./drawing-tool/drawing.service";
 

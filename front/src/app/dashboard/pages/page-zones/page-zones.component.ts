@@ -1,7 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {MapComponent} from "../../../map/map.component";
-import {ZoneService} from "./zone.service";
-import {Zone} from './zone.model';
+import {ZoneService} from "../zone.service";
+import {Zone} from '../zone.model';
 
 @Component({
   selector: 'app-page-zones',

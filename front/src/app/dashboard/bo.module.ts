@@ -12,7 +12,7 @@ import { PageZonesComponent } from './pages/page-zones/page-zones.component';
 import {MapModule} from "../map/map.module";
 import { PageCalendarComponent } from './pages/page-calendar/page-calendar.component';
 import { CalendarModule } from '../calendar/calendar.module';
-import { PageCreateZoneComponent } from './pages/page-zones/page-create-zone/page-create-zone.component';
+import { PageCreateZoneComponent } from './pages/page-create-zone/page-create-zone.component';
 import { RecurringFormComponent } from './forms/recurring-form/recurring-form.component';
 import { DateFnsModule } from 'ngx-date-fns';
 

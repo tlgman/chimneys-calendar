@@ -3,11 +3,11 @@ import { NgForm } from '@angular/forms';
 import {Zone} from '../zone.model';
 import {CalendarEvent, CalendarEventTimesChangedEvent} from 'angular-calendar';
 import {ZoneService} from "../zone.service";
-import {MapComponent} from "../../../../map/map.component";
+import {MapComponent} from "../../../map/map.component";
 import {startOfWeek, addDays, startOfDay, setHours, setMinutes, getDay, getISODay} from 'date-fns';
 
-import {DayValue, RecurringFormComponent} from "../../../forms/recurring-form/recurring-form.component";
-import {CalendarComponent, EventCalendarChangeState} from "../../../../calendar/calendar.component";
+import {DayValue, RecurringFormComponent} from "../../forms/recurring-form/recurring-form.component";
+import {CalendarComponent, EventCalendarChangeState} from "../../../calendar/calendar.component";
 
 
 const DEFAULT_EVENT_PRIMARY_COLOR = '#1e90ff';
