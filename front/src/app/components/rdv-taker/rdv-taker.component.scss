@@ -5,3 +5,11 @@
     width: 100%;
   }
 }
+
+.searched-address{
+  cursor: pointer;
+  &:hover {
+    color: white;
+    background-color: blue;
+  }
+}

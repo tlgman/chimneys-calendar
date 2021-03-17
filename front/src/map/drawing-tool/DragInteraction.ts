@@ -1,6 +1,6 @@
-import PointerInteraction from "ol/interaction/Pointer";
-import {Layer} from "ol/layer";
-import {Source} from "ol/source";
+import PointerInteraction from 'ol/interaction/Pointer';
+import {Layer} from 'ol/layer';
+import {Source} from 'ol/source';
 
 interface Options {
   layers?: Layer<Source>[];
@@ -106,7 +106,7 @@ function handleMoveEvent(evt) {
     );
     const element = evt.map.getTargetElement();
     if (feature) {
-      if (element.style.cursor != this.cursor_) {
+      if (element.style.cursor !== this.cursor_) {
         this.previousCursor_ = element.style.cursor;
         element.style.cursor = this.cursor_;
       }

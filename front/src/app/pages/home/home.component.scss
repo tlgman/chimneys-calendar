@@ -1,0 +1,11 @@
+
+.take-rdv-button-container {
+  width: 100%;
+  text-align: center;
+  height: 200px;
+
+  ::ng-deep .p-button{
+    height: 7rem;
+    font-size: 2.5rem;
+  }
+}

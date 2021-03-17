@@ -3,7 +3,14 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  rdvTaker: {
+    limitSearchResult: 5,
+    priorityCoordinate: {
+      lon: 5.909958,
+      lat: 45.583356
+    }
+  }
 };
 
 /*

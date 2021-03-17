@@ -1,6 +1,9 @@
 
 
 
+Inspiration sur le site : https://www.ramonetou.fr/
+
+
 * choix du créneau
     * L'utilisateur arrive directement sur la première semaine disponnible
 

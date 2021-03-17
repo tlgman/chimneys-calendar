@@ -1,14 +1,21 @@
-<h3>Prendre un rendez-vous</h3>
-
-<label for="user-address">Entrez votre adresse :</label><br>
-<span class="search-address-input-container p-input-icon-left p-input-icon-right">
-    <i class="pi pi-search"></i>
-    <input type="text" id="user-address"
-           class="search-address-input"
-           pInputText
-           placeholder="Entrez votre adresse"
-           (input)="onSearchAddressChange($event)"
-    >
+<div class="p-inputgroup">
+<span class="p-inputgroup-addon">
     <i class="pi pi-map-marker"></i>
 </span>
-<app-map></app-map>
+<input type="text" id="user-address"
+       class="search-address-input"
+       pInputText
+       placeholder="Entrez votre adresse"
+       (input)="onSearchAddressChange($event)"
+>
+<button type="button" pButton pRipple label="Ok"></button>
+</div>
+<div>
+    <ul>
+        <li *ngFor="let address of availableAddresses"
+            (click)="selectAddress(address)"
+            class="searched-address"
+        >{{address.properties.label}}</li>
+    </ul>
+</div>
+<app-map #map></app-map>

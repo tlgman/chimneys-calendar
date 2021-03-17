@@ -1,25 +1,25 @@
-import VectorLayer from "ol/layer/Vector";
-import VectorSource from "ol/source/Vector";
-import {Injectable} from "@angular/core";
-import {Feature} from "ol";
-import {MapService} from "../map.service";
-import {Fill, Stroke, Style} from "ol/style";
-import CircleStyle from "ol/style/Circle";
-import {Draw, Modify, Snap} from "ol/interaction";
-import GeometryType from "ol/geom/GeometryType";
-import {DragInteraction} from "./DragInteraction";
-import {RemoveInteraction} from "./RemoveInteraction";
-import {inspect} from "util";
+import Map from 'ol/Map';
+import VectorLayer from 'ol/layer/Vector';
+import VectorSource from 'ol/source/Vector';
+import {Injectable} from '@angular/core';
+import {Feature} from 'ol';
+import {Fill, Stroke, Style} from 'ol/style';
+import CircleStyle from 'ol/style/Circle';
+import {Draw, Modify, Snap} from 'ol/interaction';
+import GeometryType from 'ol/geom/GeometryType';
+import {DragInteraction} from './DragInteraction';
+import {RemoveInteraction} from './RemoveInteraction';
+import {MapService} from '../map.service';
 
 
 export enum Mode {NONE, DRAW, DRAG, DELETE}
 
 export interface StyleOptions {
   stroke?: {
-    color?: string,
-    width?: number
-  },
-  fillColor?: string
+    color?: string;
+    width?: number;
+  };
+  fillColor?: string;
 }
 
 const STROKE_WIDTH = 3;
@@ -68,7 +68,8 @@ export class DrawingService {
       source: this.drawingSource,
       style: this.drawingLayer.getStyle()
     });
-    this.mapService.zoneFeaturesObs.subscribe(this.addSnapFeatures.bind(this));
+    console.log('TODO: add snap layers');
+    // this.mapService.zoneFeatures$.subscribe(this.addSnapFeatures.bind(this));
   }
 
   changeMode(mode: Mode) {
@@ -136,7 +137,7 @@ export class DrawingService {
     if(this.drawingLayer) {
       const style = (this.drawingLayer.getStyle() as Style);
       style.setStroke(new Stroke({
-        color: color,
+        color,
         width: STROKE_WIDTH
       }));
       // Change drawing cursor style
@@ -150,7 +151,6 @@ export class DrawingService {
   }
 
   addSnapFeatures(features: Feature[]) {
-    console.log('add snap feature: ', features);
     features.forEach(feature => this.snap.addFeature(feature));
   }
 }

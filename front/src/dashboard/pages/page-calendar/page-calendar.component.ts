@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {addDays, addHours, endOfMonth, startOfDay, subDays} from "date-fns";
-import {CalendarComponent} from "../../../calendar/calendar.component";
+import {CalendarComponent} from "../../../app/calendar/calendar.component";
 import {CalendarEvent} from "angular-calendar";
 
 const colors: any = {

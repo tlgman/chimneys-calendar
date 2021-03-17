@@ -6,27 +6,34 @@ import {
   Input,
   OnInit
 } from '@angular/core';
+import Map from 'ol/Map';
 import {Zone} from '../dashboard/pages/zone.model';
-import {MapService} from "./map.service";
-import {DrawingService} from "./drawing-tool/drawing.service";
+import {MapService} from './map.service';
+import {DrawingService} from './drawing-tool/drawing.service';
+import {ZoneService} from './zone.service';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [{ provide: MapService }, { provide: DrawingService }]
+  providers: [{ provide: MapService }, { provide: DrawingService }, {provide: ZoneService}]
 })
 
 
 export class MapComponent implements OnInit, AfterViewInit {
-  @Input('drawing-tool') drawingToolEnabled: boolean = false;
+  @Input('drawing-tool') drawingToolEnabled = false;
   @Input('drawing-tool-options') drawingToolOptions: any = {};
 
   uniqid: string;
-  isMapInitialized: boolean = false;
+  isMapInitialized = false;
+  map: Map;
 
-  constructor(private mapService: MapService, private cdr: ChangeDetectorRef, public drawingService: DrawingService) { }
+  constructor(private mapService: MapService,
+              private zoneService: ZoneService,
+              public drawingService: DrawingService,
+              private cdr: ChangeDetectorRef,
+  ) {}
 
   ngOnInit(): void {
     this.generateUniqId();
@@ -39,17 +46,20 @@ export class MapComponent implements OnInit, AfterViewInit {
   }
 
   initMap() {
-    this.mapService.initMap();
-    this.mapService.map.setTarget('map-' + this.uniqid);
+    this.map = this.mapService.initMap();
+    this.map.setTarget('map-' + this.uniqid);
     this.isMapInitialized = true;
   }
 
   addZones(zones: Zone[]) {
-    this.mapService.addZones(zones);
+    this.zoneService.addZones(zones);
   }
 
   private generateUniqId() {
     this.uniqid = Math.random().toString(36).substr(2, 9);
   }
 
+  addMarker(position: [number, number]) {
+    this.mapService.addMarker(position);
+  }
 }

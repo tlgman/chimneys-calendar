@@ -1,9 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
-
-
-const LIMIT_SEARCH_RESULTS = 5;
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +11,18 @@ export class GeocodingService {
 
   constructor(private http: HttpClient) {}
 
-  search$(search: string): Observable<Object> {
+  /**
+   * Search
+   * @param {string} search
+   * @returns {Observable<Object>}
+   */
+  search$(search: string): Observable<any> {
     const params = new HttpParams()
       .append('q', search)
-      .append('limit', ''+LIMIT_SEARCH_RESULTS)
-      .append('type', 'housenumber');
-    return this.http.get<Object>(`${this.url}?${params.toString()}`);
+      .append('limit', '' + environment.rdvTaker.limitSearchResult)
+      .append('type', 'housenumber')
+      .append('lat', '' + environment.rdvTaker.priorityCoordinate.lat)
+      .append('lon', '' + environment.rdvTaker.priorityCoordinate.lon);
+    return this.http.get<any>(`${this.url}?${params.toString()}`);
   }
 }
