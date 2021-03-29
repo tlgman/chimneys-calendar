@@ -7,7 +7,7 @@ import {Fill, Stroke, Style} from 'ol/style';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import {ColorUtilsService} from '../utils/color-utils.service';
-import {Zone} from '../dashboard/pages/zone.model';
+import {Zone} from '../bo/pages/zone.model';
 import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject, Observable, ReplaySubject} from 'rxjs';
 import {Feature} from 'ol';

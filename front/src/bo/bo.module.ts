@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { DashboardComponent } from './dashboard.component';
+import { BoComponent } from './bo.component';
 
 import { BoRoutingModule } from './bo-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -18,7 +18,7 @@ import { DateFnsModule } from 'ngx-date-fns';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
+    BoComponent,
     HeaderComponent,
     NavbarComponent,
     SubMenuComponent,

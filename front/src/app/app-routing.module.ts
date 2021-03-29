@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from './pages/home/home.component';
-import {BoModule} from '../dashboard/bo.module';
+import {BoModule} from '../bo/bo.module';
 import {TakeRdvComponent} from './pages/take-rdv/take-rdv.component';
 import {ContainerComponent} from './pages/container/container.component';
 

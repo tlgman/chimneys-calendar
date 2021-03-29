@@ -7,7 +7,7 @@ import {
   OnInit
 } from '@angular/core';
 import Map from 'ol/Map';
-import {Zone} from '../dashboard/pages/zone.model';
+import {Zone} from '../bo/pages/zone.model';
 import {MapService} from './map.service';
 import {DrawingService} from './drawing-tool/drawing.service';
 import {ZoneService} from './zone.service';

@@ -9,7 +9,7 @@ import {StepsModule as PrimeStepsModule} from 'primeng/steps';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {BoModule} from '../dashboard/bo.module';
+import {BoModule} from '../bo/bo.module';
 import { HomeComponent } from './pages/home/home.component';
 import {MapModule} from '../map/map.module';
 import {RdvTakerComponent} from './components/rdv-taker/rdv-taker.component';
