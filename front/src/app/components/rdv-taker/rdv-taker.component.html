@@ -6,16 +6,22 @@
        class="search-address-input"
        pInputText
        placeholder="Entrez votre adresse"
-       (input)="onSearchAddressChange($event)"
+       (ngModelChange)="onSearchAddressChange($event)"
+       [(ngModel)]="chosenAddressLabel"
 >
-<button type="button" pButton pRipple label="Ok"></button>
+<button type="button"
+        (click)="selectAddress()"
+        pButton
+        pRipple
+        label="Ok"></button>
 </div>
 <div>
     <ul>
         <li *ngFor="let address of availableAddresses"
-            (click)="selectAddress(address)"
             class="searched-address"
+            (click)="chosenAddress = address; chosenAddressLabel = address.properties.label"
         >{{address.properties.label}}</li>
     </ul>
 </div>
-<app-map #map></app-map>
+
+<app-map *ngIf="selectedAddress" #map></app-map>

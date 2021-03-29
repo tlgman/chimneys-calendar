@@ -10,12 +10,15 @@ import {MapComponent} from '../../../map/map.component';
 })
 export class RdvTakerComponent {
   availableAddresses: SearchedAddress[];
+  chosenAddress: SearchedAddress;
+  chosenAddressLabel: string;
+  selectedAddress: SearchedAddress;
+
   @ViewChild('map') map: MapComponent;
 
   constructor(private geocoder: GeocodingService) { }
 
-  onSearchAddressChange(event: Event) {
-    const search = (event.target as HTMLInputElement).value;
+  onSearchAddressChange(search: string) {
     if(search.length > 1) {
       this.geocoder.search$(search).subscribe((result: {features: Array<SearchedAddress>}) => {
         console.log(result.features.length);
@@ -25,8 +28,9 @@ export class RdvTakerComponent {
     }
   }
 
-  selectAddress(address: SearchedAddress) {
-    this.map.addMarker(address.geometry.coordinates);
+  selectAddress() {
+    this.selectedAddress = this.chosenAddress;
+    this.map.addMarker(this.chosenAddress.geometry.coordinates);
   }
 
 }
