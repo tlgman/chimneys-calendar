@@ -15,6 +15,7 @@ import { CalendarModule } from '../app/calendar/calendar.module';
 import { PageCreateZoneComponent } from './pages/page-create-zone/page-create-zone.component';
 import { RecurringFormComponent } from './forms/recurring-form/recurring-form.component';
 import { DateFnsModule } from 'ngx-date-fns';
+import {PageAvailabilitiesComponent} from './pages/page-availabilities/page-availabilities.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { DateFnsModule } from 'ngx-date-fns';
     PageCalendarComponent,
     PageCreateZoneComponent,
     RecurringFormComponent,
+    PageAvailabilitiesComponent
   ],
   imports: [
     CommonModule,

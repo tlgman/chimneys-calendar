@@ -2,21 +2,21 @@
   <div
       class="btn btn-primary"
       (click)="changeView(CalendarView.Month)"
-      [class.active]="view === CalendarView.Month"
+      [class.active]="calendar.view === CalendarView.Month"
   >
     Mois
   </div>
   <div
       class="btn btn-primary"
       (click)="changeView(CalendarView.Week)"
-      [class.active]="view === CalendarView.Week"
+      [class.active]="calendar.view === CalendarView.Week"
   >
     Semaine
   </div>
   <div
       class="btn btn-primary"
       (click)="changeView(CalendarView.Day)"
-      [class.active]="view === CalendarView.Day"
+      [class.active]="calendar.view === CalendarView.Day"
   >
     Jour
   </div>

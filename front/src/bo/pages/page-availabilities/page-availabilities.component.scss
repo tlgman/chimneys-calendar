@@ -1,0 +1,18 @@
+
+:host ::ng-deep .cal-week-view .cal-time-events .cal-day-columns {
+
+
+  .cal-hour-segment {
+    text-align: center;
+    cursor: pointer;
+
+    .plus-icon {
+      visibility: hidden;
+      color: #5f6367;
+    }
+  }
+
+  &:not(.cal-resize-active) .cal-hour-segment:hover .plus-icon {
+    visibility: visible;
+  }
+}

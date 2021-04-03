@@ -7,20 +7,13 @@ import {CalendarView} from "angular-calendar";
   templateUrl: './mode-control.component.html',
   styleUrls: ['./mode-control.component.scss']
 })
-export class ModeControlComponent implements OnInit {
+export class ModeControlComponent {
   @Input('calendar') calendar: CalendarComponent;
-  view: CalendarView;
   CalendarView = CalendarView;
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.view = this.calendar.view;
-  }
-
   changeView(view: CalendarView) {
-    this.view = view;
     this.calendar.changeView(view);
   }
-
 }

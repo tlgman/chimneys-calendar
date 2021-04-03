@@ -3,8 +3,7 @@ import {
   ChangeDetectorRef,
   Component, EventEmitter,
   Input, Output,
-  TemplateRef,
-  ViewChild, ViewChildren,
+  TemplateRef
 } from '@angular/core';
 // import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
@@ -21,6 +20,11 @@ import {Subject} from 'rxjs';
 import {CustomDateFormatter} from "./custom-date-formatter.provider";
 
 export type EventCalendarChangeState = {oldEvent: CalendarEvent, newEvent: CalendarEvent};
+
+export type HourClickEvent = {
+  date: Date;
+  sourceEvent: MouseEvent;
+};
 
 @Component({
   selector: 'app-calendar',
@@ -40,18 +44,19 @@ export class CalendarComponent {
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
   excludeDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
-  view: CalendarView = CalendarView.Week;
   CalendarView = CalendarView;
   viewDate: Date = new Date();
   // Current seleted event
   selectedEvent: CalendarEvent;
-  @Input('events') events: CalendarEvent[] = [];
+  @Input() view: CalendarView = CalendarView.Week;
+  @Input() events: CalendarEvent[] = [];
   @Input('hourSegmentTemplate') hourSegment: TemplateRef<any>;
   @Input('headerWeekTemplate') headerWeek: TemplateRef<any>;
   @Output('eventChanged') eventChanged: EventEmitter<EventCalendarChangeState>
     = new EventEmitter<EventCalendarChangeState>();
   @Output('selectedEventChanged') selectedEventChanged: EventEmitter<EventCalendarChangeState>
     = new EventEmitter<EventCalendarChangeState>();
+  @Output() hourSegmentClicked = new EventEmitter<HourClickEvent>();
 
   modalData: {
     action: string;
@@ -82,7 +87,7 @@ export class CalendarComponent {
   activeDayIsOpen: boolean = true;
 
   // constructor(private modal: NgbModal) {}
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private readonly cdr: ChangeDetectorRef) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -193,14 +198,6 @@ export class CalendarComponent {
   changeEventColor(event: CalendarEvent, color: {primary: string, secondary: string}) {
     event.color = color;
     this.cdr.detectChanges();
-  }
-
-  /**
-   * When user click on empty hour cell
-   * @param event
-   */
-  hourSegmentClicked(event) {
-    console.log('Création nouvel event: ', event);
   }
 
   detectChange() {
