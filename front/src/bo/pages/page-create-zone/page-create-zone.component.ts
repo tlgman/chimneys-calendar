@@ -1,14 +1,9 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
 import {Zone} from '../../models/zone.model';
-import {CalendarEvent, CalendarEventTimesChangedEvent} from 'angular-calendar';
 import {ZoneService} from "../zone.service";
 import {MapComponent} from "../../../map/map.component";
-import {startOfWeek, addDays, startOfDay, setHours, setMinutes, getDay, getISODay} from 'date-fns';
-
-import {DayValue, RecurringFormComponent} from "../../forms/recurring-form/recurring-form.component";
-import {CalendarComponent, EventCalendarChangeState} from "../../../app/calendar/calendar.component";
-
+import {MessageService} from 'primeng/api';
 
 const DEFAULT_EVENT_PRIMARY_COLOR = '#1e90ff';
 
@@ -23,14 +18,21 @@ export class PageCreateZoneComponent implements OnInit {
   private _colorZone: string = '#d1e8ff';
   nameZone: string = '';
 
-  constructor(private zoneService: ZoneService) {}
+  constructor(private zoneService: ZoneService,
+              private readonly messageService: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.zoneService.fetch()
       .subscribe((zones: Zone[]) => {
         this.map.addZones(zones);
       }, error => {
-        console.log('Unable to load zones: ', error);
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur au chargement des zones',
+          detail: 'Impossible de charger la liste des zones.'
+        });
+        console.error('Unable to load zones: ', error);
       });
   }
 
