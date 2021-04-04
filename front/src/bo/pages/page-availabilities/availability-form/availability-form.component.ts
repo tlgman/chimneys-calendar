@@ -1,9 +1,10 @@
-import {Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {Component, forwardRef, Input, OnDestroy, OnInit} from '@angular/core';
 import {ControlValueAccessor, FormBuilder, NG_VALUE_ACCESSOR} from '@angular/forms';
 import {Availability} from '../../../models/availability.model';
 import {noop, Subscription} from 'rxjs';
 import {format, isEqual} from 'date-fns';
 import {environment} from '../../../../environments/environment';
+import {Zone} from '../../../models/zone.model';
 
 const FORM_DEFAULT_VALUES = {
   start: null,
@@ -34,12 +35,13 @@ export class AvailabilityFormComponent implements ControlValueAccessor, OnDestro
   protected onChange: (value: Availability) => void = noop;
   protected previousValues;
   private subscriptions: Subscription;
+  selectedZone: Zone;
+  @Input() zones: Zone[] = [];
 
   constructor(private readonly fb: FormBuilder) {
     this.previousValues = this.form.value;
     this.form.valueChanges.subscribe((values) => {
       if(this.checkValuesChanges(values)) {
-        console.log('changes');
         this.availability = values;
       }
     });
@@ -53,6 +55,7 @@ export class AvailabilityFormComponent implements ControlValueAccessor, OnDestro
     this._availability = value;
     this.previousValues = value;
     this.formatInfo(value);
+    this.findSelectedZone(value?.zoneId);
     this.onChange(value);
   }
 
@@ -70,6 +73,7 @@ export class AvailabilityFormComponent implements ControlValueAccessor, OnDestro
       ...(value || {})
     };
     this.formatInfo(value);
+    this.findSelectedZone(value?.zoneId);
     this.previousValues = this.availability;
     this.form.setValue(this.availability, {emitEvent: false});
   }
@@ -87,7 +91,11 @@ export class AvailabilityFormComponent implements ControlValueAccessor, OnDestro
     }
     this.resumeInfo =
       format(availability.start, "EEEE d 'de' H'h'mm à ", {locale: environment.date.locale})
-      + format(availability.end, "H'h'mm")
+      + format(availability.end, "H'h'mm");
+  }
+
+  protected findSelectedZone(serachedId?: number) {
+    this.selectedZone = this.zones.find(zone => zone.id === serachedId);
   }
 
   ngOnDestroy(): void {

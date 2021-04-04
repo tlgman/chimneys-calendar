@@ -13,6 +13,25 @@
 
   <div class="line">
     <label>Zone : </label>
-    <p-dropdown formControlName="zoneId" [showClear]="true"></p-dropdown>
+    <p-dropdown formControlName="zoneId"
+                [options]="zones"
+                optionValue="id"
+                optionLabel="name"
+                [showClear]="true"
+                [autoDisplayFirst]="false"
+    >
+      <ng-template pTemplate="selectedItem">
+        <div *ngIf="selectedZone">
+          <span class="pi pi-circle-on" [ngStyle]="{'color': selectedZone.color}"></span>
+          {{selectedZone.name}}
+        </div>
+      </ng-template>
+      <ng-template let-zone pTemplate="item">
+        <div class="zone-item">
+          <span class="pi pi-circle-on" [ngStyle]="{'color': zone.color}"></span>
+          {{zone.name}}
+        </div>
+      </ng-template>
+    </p-dropdown>
   </div>
 </form>

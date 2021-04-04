@@ -15,7 +15,7 @@ const DEFAULT_EVENT_PRIMARY_COLOR = '#1e90ff';
 export class PageCreateZoneComponent implements OnInit {
   @ViewChild('createZoneForm', {static: false}) zoneForm: NgForm;
   @ViewChild('map', {static: false}) map: MapComponent;
-  private _colorZone: string = '#d1e8ff';
+  private _colorZone: string = '#2dae26';
   nameZone: string = '';
 
   constructor(private zoneService: ZoneService,

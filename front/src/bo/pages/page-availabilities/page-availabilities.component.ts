@@ -6,6 +6,10 @@ import {ZoneService} from '../zone.service';
 import {Zone} from '../../models/zone.model';
 import {MessageService} from 'primeng/api';
 
+const EVENT_DEFAULT_PRIMARY_COLOR = '#FFFFFF';
+const EVENT_SELECTION_PRIMARY_COLOR = '#007bff';
+
+
 @Component({
   selector: 'app-page-availabilities',
   templateUrl: './page-availabilities.component.html',
@@ -35,15 +39,17 @@ export class PageAvailabilitiesComponent {
       start: calEvent.start,
       end: calEvent.end
     });
-    calEvent.meta = this.selectedAvailability;
-    this.selectedEvent = calEvent;
+    calEvent.meta = {zoneId: this.selectedAvailability.zoneId};
+    this.setSelectedEvent(calEvent);
   }
 
   changedAvailability() {
-    const {start, end} = this.selectedAvailability;
+    const {start, end, zoneId} = this.selectedAvailability;
     this.selectedEvent.start = start;
     this.selectedEvent.end = end;
-    this.selectedEvent.meta = {zoneId: this.selectedAvailability.zoneId};
+    this.selectedEvent.meta = {zoneId};
+    const selectedZone = this.zones.find(zone => zone.id === zoneId);
+    this.selectedEvent.color.secondary = selectedZone ? selectedZone.color : '#000000'
     this.calendar.detectChangeEvents();
   }
 
@@ -53,7 +59,7 @@ export class PageAvailabilitiesComponent {
       end: event.end,
       zoneId: event.meta?.zoneId
     };
-    this.selectedEvent = event;
+    this.setSelectedEvent(event);
   }
 
   protected static createAvailability({start, end}: {start: Date, end: Date}): Availability {
@@ -62,5 +68,14 @@ export class PageAvailabilitiesComponent {
       end,
       zoneId: null
     };
+  }
+
+  setSelectedEvent(event: CalendarEvent) {
+    if(this.selectedEvent) {
+      this.selectedEvent.color.primary = EVENT_DEFAULT_PRIMARY_COLOR;
+    }
+    this.selectedEvent = event;
+    event.color.primary = EVENT_SELECTION_PRIMARY_COLOR;
+    this.calendar.detectChangeEvents();
   }
 }
