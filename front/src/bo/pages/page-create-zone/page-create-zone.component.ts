@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { NgForm } from '@angular/forms';
-import {Zone} from '../zone.model';
+import {Zone} from '../../models/zone.model';
 import {CalendarEvent, CalendarEventTimesChangedEvent} from 'angular-calendar';
 import {ZoneService} from "../zone.service";
 import {MapComponent} from "../../../map/map.component";

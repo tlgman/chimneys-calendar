@@ -5,7 +5,6 @@ import {
   Input, Output,
   TemplateRef
 } from '@angular/core';
-// import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -14,7 +13,7 @@ import {
   CalendarView,
   DAYS_OF_WEEK, CalendarWeekViewComponent
 } from 'angular-calendar';
-import {addDays, addHours, endOfDay, endOfMonth, isSameDay, isSameMonth, startOfDay, subDays} from 'date-fns';
+import {isSameDay, isSameMonth} from 'date-fns';
 // import {fr} from 'date-fns/locale'
 import {Subject} from 'rxjs';
 import {CustomDateFormatter} from "./custom-date-formatter.provider";

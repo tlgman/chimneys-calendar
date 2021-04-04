@@ -1,0 +1,18 @@
+<h4>Mardi de # à #</h4>
+
+<form [formGroup]="form">
+  <div class="line">
+    <label>Début : </label>
+    <p-calendar showTime="true" hourFormat="24"></p-calendar>
+  </div>
+
+  <div class="line">
+    <label>Fin : </label>
+    <p-calendar showTime="true" hourFormat="24"></p-calendar>
+  </div>
+
+  <div class="line">
+    <label>Zone : </label>
+    <p-dropdown [showClear]="true"></p-dropdown>
+  </div>
+</form>

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {Zone, JsonableZone} from './zone.model';
+import {Zone, JsonableZone} from '../models/zone.model';
 import Feature from "ol/Feature";
 import {GeoJSON} from "ol/format";
 import {catchError, map} from "rxjs/operators";

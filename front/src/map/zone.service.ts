@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import VectorSource from 'ol/source/Vector';
 import VectorLayer from 'ol/layer/Vector';
 import {Feature} from 'ol';
-import {Zone} from '../bo/pages/zone.model';
+import {Zone} from '../bo/models/zone.model';
 import {Fill, Stroke, Style} from 'ol/style';
 import {ColorUtilsService} from '../utils/color-utils.service';
 import {Observable, ReplaySubject} from 'rxjs';
