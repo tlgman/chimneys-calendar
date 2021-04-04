@@ -1,6 +1,6 @@
 
 export interface Availability {
-  dateStart: Date,
-  dateEnd: Date,
+  start: Date,
+  end: Date,
   zoneId?: string
 }

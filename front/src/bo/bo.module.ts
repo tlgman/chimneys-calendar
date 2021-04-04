@@ -18,8 +18,8 @@ import { PageCreateZoneComponent } from './pages/page-create-zone/page-create-zo
 import { RecurringFormComponent } from './forms/recurring-form/recurring-form.component';
 import { DateFnsModule } from 'ngx-date-fns';
 import {PageAvailabilitiesComponent} from './pages/page-availabilities/page-availabilities.component';
-import {AvailabilitiesCalendarComponent} from './components/availabilities-calendar/availabilities-calendar.component';
-import {AvailabilityFormComponent} from './components/availability-form/availability-form.component';
+import {AvailabilitiesCalendarComponent} from './pages/page-availabilities/availabilities-calendar/availabilities-calendar.component';
+import {AvailabilityFormComponent} from './pages/page-availabilities/availability-form/availability-form.component';
 
 @NgModule({
   declarations: [

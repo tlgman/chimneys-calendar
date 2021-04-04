@@ -37,4 +37,6 @@
               [hourSegmentTemplate]="addHourSegment"
               (hourSegmentClicked)="addCalendarEvent($event)"
               [events]="events"
+              (onEventChange)="onEventChanged.emit($event)"
+              (onEventClicked)="onEventSelected.emit($event)"
 ></app-calendar>

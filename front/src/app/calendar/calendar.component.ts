@@ -38,7 +38,6 @@ export type HourClickEvent = {
 })
 
 export class CalendarComponent {
-  // @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   locale: string = 'fr';
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
@@ -51,11 +50,11 @@ export class CalendarComponent {
   @Input() events: CalendarEvent[] = [];
   @Input('hourSegmentTemplate') hourSegment: TemplateRef<any>;
   @Input('headerWeekTemplate') headerWeek: TemplateRef<any>;
-  @Output('eventChanged') eventChanged: EventEmitter<EventCalendarChangeState>
-    = new EventEmitter<EventCalendarChangeState>();
+  @Output() onEventChange = new EventEmitter<CalendarEvent>();
   @Output('selectedEventChanged') selectedEventChanged: EventEmitter<EventCalendarChangeState>
     = new EventEmitter<EventCalendarChangeState>();
   @Output() hourSegmentClicked = new EventEmitter<HourClickEvent>();
+  @Output() onEventClicked = new EventEmitter<CalendarEvent>();
 
   modalData: {
     action: string;
@@ -85,7 +84,6 @@ export class CalendarComponent {
 
   activeDayIsOpen: boolean = true;
 
-  // constructor(private modal: NgbModal) {}
   constructor(private readonly cdr: ChangeDetectorRef) {}
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
@@ -113,21 +111,23 @@ export class CalendarComponent {
                       newStart,
                       newEnd,
                     }: CalendarEventTimesChangedEvent): void {
-    const newEvent = this.setEventTime({event, newStart, newEnd})
-    this.handleEvent('Dropped or resized', newEvent);
+    const newEvent = this.setEventTime({event, newStart, newEnd});
+    this.onEventChange.emit(newEvent);
+
+    // this.handleEvent('Dropped or resized', newEvent);
+    // this.handleEvent('Dropped or resized', event);
   }
 
   handleEvent(action: string, event: CalendarEvent): void {
     // If new event is selected
-    if(event !== this.selectedEvent) {
-      this.selectedEventChanged.emit({
-        oldEvent: this.selectedEvent,
-        newEvent: event
-      });
-      this.selectedEvent = event;
-    }
-    // this.modalData = { event, action };
-    // this.modal.open(this.modalContent, { size: 'lg' });
+    // if(event !== this.selectedEvent) {
+    //   this.selectedEventChanged.emit({
+    //     oldEvent: this.selectedEvent,
+    //     newEvent: event
+    //   });
+    //   this.selectedEvent = event;
+    // }
+    console.log('action', action, event);
   }
 
   /**
@@ -151,14 +151,14 @@ export class CalendarComponent {
           end: newEnd,
         };
         // If selectedEvent is modified
-        if (event === this.selectedEvent) {
-          this.selectedEventChanged.emit({
-            oldEvent: this.selectedEvent,
-            newEvent: newEvent
-          });
-          this.selectedEvent = newEvent;
-        }
-        this.eventChanged.emit({oldEvent: event, newEvent});
+        // if (event === this.selectedEvent) {
+          // this.selectedEventChanged.emit({
+          //   oldEvent: this.selectedEvent,
+          //   newEvent: newEvent
+          // });
+          // this.selectedEvent = newEvent;
+        // }
+        // this.eventChanged.emit({oldEvent: event, newEvent});
         return newEvent;
       }
       return iEvent;
@@ -199,7 +199,13 @@ export class CalendarComponent {
     this.cdr.detectChanges();
   }
 
-  detectChange() {
+  // Recrate new array to detect events changes
+  detectChangeEvents() {
+    this.events = [...this.events];
+    this.detectChanges();
+  }
+
+  detectChanges() {
     this.cdr.detectChanges();
   }
 }

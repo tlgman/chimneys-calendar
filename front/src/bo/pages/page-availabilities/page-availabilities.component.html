@@ -2,10 +2,19 @@
 
 <div class="row row-controls">
   <div class="col-md-9">
-    <bo-availabilities-calendar (onCreateEvent)="selectedEvent = $event"></bo-availabilities-calendar>
+    <bo-availabilities-calendar #calendar
+                                (onCreateEvent)="createdEvent($event)"
+                                (onEventChanged)="onEventChange($event)"
+                                (onEventSelected)="onEventChange($event)"
+    ></bo-availabilities-calendar>
   </div>
   <div class="col-md-3">
     TODO : OUverture tranquillement (animation) avec une croix pour fermer cette partie
-    <bo-availability-form></bo-availability-form>
+    <div *ngIf="selectedAvailability">
+      <bo-availability-form
+          [(ngModel)]="selectedAvailability"
+          (ngModelChange)="changedAvailability()"
+      ></bo-availability-form>
+    </div>
   </div>
 </div>

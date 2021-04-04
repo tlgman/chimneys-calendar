@@ -19,7 +19,7 @@
       [viewDate]="viewDate"
       [events]="events"
       [refresh]="refresh"
-      (eventClicked)="handleEvent('Clicked', $event.event)"
+      (eventClicked)="onEventClicked.emit($event.event)"
       (eventTimesChanged)="eventTimesChanged($event)"
       (hourSegmentClicked)="hourSegmentClicked.emit($event)"
       [hourSegmentTemplate]="hourSegment"

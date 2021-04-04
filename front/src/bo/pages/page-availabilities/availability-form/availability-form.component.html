@@ -1,0 +1,18 @@
+<h4>{{resumeInfo}}</h4>
+
+<form [formGroup]="form">
+  <div class="line">
+    <label>Début : </label>
+    <p-calendar formControlName="start" timeOnly="true" hourFormat="24"></p-calendar>
+  </div>
+
+  <div class="line">
+    <label>Fin : </label>
+    <p-calendar formControlName="end" timeOnly="true" showTime="true" hourFormat="24"></p-calendar>
+  </div>
+
+  <div class="line">
+    <label>Zone : </label>
+    <p-dropdown formControlName="zoneId" [showClear]="true"></p-dropdown>
+  </div>
+</form>

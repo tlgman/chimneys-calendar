@@ -2,6 +2,8 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+import {fr} from 'date-fns/locale'
+
 export const environment = {
   production: false,
   rdvTaker: {
@@ -10,6 +12,9 @@ export const environment = {
       lon: 5.909958,
       lat: 45.583356
     }
+  },
+  date: {
+    locale: fr
   }
 };
 

@@ -1,6 +1,6 @@
 import {CalendarEvent, CalendarView} from 'angular-calendar';
 import {Component, Output, ViewChild, EventEmitter, Input} from '@angular/core';
-import {CalendarComponent, HourClickEvent} from '../../../app/calendar/calendar.component';
+import {CalendarComponent, HourClickEvent} from '../../../../app/calendar/calendar.component';
 import {addHours} from 'date-fns';
 
 const DEFAULT_EVENT_PRIMARY_COLOR = '#FFFFFF';
@@ -16,12 +16,13 @@ export class AvailabilitiesCalendarComponent {
   @ViewChild('calendar', {static: true}) calendar: CalendarComponent;
   events: CalendarEvent[] = [];
   @Output('onCreateEvent') createEventEmitter = new EventEmitter<CalendarEvent>();
-  @Input() selectedEvent;
+  @Output() onEventChanged = new EventEmitter<CalendarEvent>();
+  @Output() onEventSelected = new EventEmitter<CalendarEvent>();
 
   constructor() { }
 
   addCalendarEvent({date}: HourClickEvent) {
-    this.selectedEvent = this.calendar.addEvent(
+    const event = this.calendar.addEvent(
       {
         title: 'Zone # de hh à hh',
         start: date,
@@ -37,6 +38,10 @@ export class AvailabilitiesCalendarComponent {
         }
       }
     );
-    this.createEventEmitter.emit(this.selectedEvent);
+    this.createEventEmitter.emit(event);
+  }
+
+  detectChangeEvents() {
+    this.calendar.detectChangeEvents();
   }
 }
