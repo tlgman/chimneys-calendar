@@ -21,15 +21,24 @@
 * Pouvoir modifier son rendez-vous avec le mail (modifier/supprimer)
 * Admin: Valider un rendez-vous
 
-## Zones
-* Convertir les polygones en mutlipolygones
-
 
 # Front
-* Ajouter fa icones
+ 
+## Global
 * Mettre en place un composant de notification
-* Mettre en place un système pour chager des configs au démarrage
- * Utiliser pour les url des requêtes
+* Utiliser pour les urls des requêtes
+
+## Disponibilités
+* Validator : pas possible d'avoir une date de fin plus petite qu'une date de début...
+* Récupérer la liste des zones la select option
+* Rajouter les couleurs de chauque zone dans l'input de selection
+* Pouvoir supprimer une dispo
+* Dupliquer une disponibilité avec un clic droit
+* Zone détail dans le formulaire permettant de voir plus d'info.
+  Ex: status, la liste des rdv liés à cet évènement
+* Enregistrer la semaine, message de warning, si des modifs ont été faites sur la pages et qu'on quitte
+* Enregistrer en tant que brouillon la semaine
+* Pouvoir modifier en mode jour
 
 
 ## Demande de rdv (client)
@@ -38,6 +47,9 @@
 
 ## Zones
 * Optimiser le chargemnet des zones, pas forcément obligé de recharger à chaque fois toutes les zones
+* Convertir les polygones en mutlipolygones
+* Rendre le nom de zone obligatoire
+* Afficher le nom quand on affiche la zone
 
 ### Créer zone
 * DONE - Fix : Outils de dessin => Erreur si on essaye de supprimer une zone qu'on à pas créé

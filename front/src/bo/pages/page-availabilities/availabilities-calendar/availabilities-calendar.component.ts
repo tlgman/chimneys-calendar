@@ -24,7 +24,7 @@ export class AvailabilitiesCalendarComponent {
   addCalendarEvent({date}: HourClickEvent) {
     const event = this.calendar.addEvent(
       {
-        title: 'Zone # de hh à hh',
+        title: 'Zone ??',
         start: date,
         end: addHours(date, 4),
         color: {

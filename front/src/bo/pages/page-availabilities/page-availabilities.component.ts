@@ -49,7 +49,8 @@ export class PageAvailabilitiesComponent {
     this.selectedEvent.end = end;
     this.selectedEvent.meta = {zoneId};
     const selectedZone = this.zones.find(zone => zone.id === zoneId);
-    this.selectedEvent.color.secondary = selectedZone ? selectedZone.color : '#000000'
+    this.selectedEvent.color.secondary = selectedZone ? selectedZone.color : '#000000';
+    this.selectedEvent.title = `Zone : ${selectedZone?.name || '??'}`;
     this.calendar.detectChangeEvents();
   }
 
