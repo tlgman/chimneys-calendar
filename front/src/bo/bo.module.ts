@@ -7,6 +7,7 @@ import { BoComponent } from './bo.component';
 import { CalendarModule as PrimeCalendarModule} from 'primeng/calendar';
 import { DropdownModule as PrimeDropdownModule } from 'primeng/dropdown';
 import {ToastModule as PrimeToastModule} from 'primeng/toast';
+import {ButtonModule as PrimeButtonModule} from 'primeng/button';
 
 import { BoRoutingModule } from './bo-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -50,7 +51,8 @@ import {MessageService} from 'primeng/api';
     DateFnsModule.forRoot(),
     PrimeCalendarModule,
     PrimeDropdownModule,
-    PrimeToastModule
+    PrimeToastModule,
+    PrimeButtonModule
   ],
   providers: [
     MessageService

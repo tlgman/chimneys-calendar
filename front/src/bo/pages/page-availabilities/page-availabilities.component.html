@@ -9,7 +9,9 @@
     ></bo-availabilities-calendar>
   </div>
   <div class="col-md-3">
-    TODO : OUverture tranquillement (animation) avec une croix pour fermer cette partie
+    <button pButton type="button" label="Enregistrer"></button>
+    <button pButton type="button" label="Valider" class="p-button-success p-button-outlined"></button>
+    <button pButton type="button" label="Annuler" class="p-button-danger"></button>
     <div *ngIf="selectedAvailability">
       <bo-availability-form
           [(ngModel)]="selectedAvailability"
