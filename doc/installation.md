@@ -3,6 +3,7 @@
 ## Pour windows
 * Istaller Postgres: https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
 * Installer Postgis: http://download.osgeo.org/postgis/windows/
+(plus d'infos sur: http://www.bostongis.com/PrinterFriendly.aspx?content_name=postgis_tut01)
 * Créer la base 'chimneys_calendar'
 * Lancer la command sql en root: 
 > CREATE EXTENSION postgis;

@@ -6,6 +6,13 @@ import {fr} from 'date-fns/locale'
 
 export const environment = {
   production: false,
+  serverUrl: 'http://localhost:3000',
+  api: {
+    availabilities: {
+      base: '/availabilities',
+      week: '/week'
+    }
+  },
   rdvTaker: {
     limitSearchResult: 5,
     priorityCoordinate: {

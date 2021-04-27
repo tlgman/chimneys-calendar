@@ -30,15 +30,16 @@
 
 ## Disponibilités
 * Validator : pas possible d'avoir une date de fin plus petite qu'une date de début...
-* Récupérer la liste des zones la select option
-* Rajouter les couleurs de chauque zone dans l'input de selection
+* A l'enregistrement, mettre à jour les dispo avec les id, sinon au prochain enregistrement il y aura un problème
 * Pouvoir supprimer une dispo
 * Dupliquer une disponibilité avec un clic droit
 * Zone détail dans le formulaire permettant de voir plus d'info.
   Ex: status, la liste des rdv liés à cet évènement
 * Enregistrer la semaine, message de warning, si des modifs ont été faites sur la pages et qu'on quitte
 * Enregistrer en tant que brouillon la semaine
+* Changer l'url quand on change de semaine, => plus simple quand on recharge la page
 * Pouvoir modifier en mode jour
+* Afficher un petite icone sur chaque évènement, permettant de savoir si celui-ci à été sauvegardé
 
 
 ## Demande de rdv (client)

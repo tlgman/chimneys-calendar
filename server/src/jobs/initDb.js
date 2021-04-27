@@ -7,7 +7,6 @@ const User = require('../models/User');
 const Appointment = require('../models/Appointment');
 const Zone = require('../models/Zone');
 
-
 const argv = yargs
   .command('init-db [--force]', 'Init database')
   .option('force', {

@@ -1,6 +1,14 @@
 
 export interface Availability {
-  start: Date,
-  end: Date,
-  zoneId: number
+  id?: number;
+  start: Date;
+  end: Date;
+  zoneId: number;
+}
+
+export interface JsonAvailability {
+  id: number;
+  start: string;
+  end: string;
+  zoneId: number;
 }

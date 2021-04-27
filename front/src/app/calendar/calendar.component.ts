@@ -2,9 +2,11 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component, EventEmitter,
+  forwardRef,
   Input, Output,
   TemplateRef
 } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -34,10 +36,15 @@ export type HourClickEvent = {
       provide: CalendarDateFormatter,
       useClass: CustomDateFormatter,
     },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => CalendarComponent),
+      multi: true
+    }
   ]
 })
 
-export class CalendarComponent {
+export class CalendarComponent implements ControlValueAccessor  {
   locale: string = 'fr';
   weekStartsOn: number = DAYS_OF_WEEK.MONDAY;
   weekendDays: number[] = [DAYS_OF_WEEK.SATURDAY, DAYS_OF_WEEK.SUNDAY];
@@ -55,6 +62,9 @@ export class CalendarComponent {
     = new EventEmitter<EventCalendarChangeState>();
   @Output() hourSegmentClicked = new EventEmitter<HourClickEvent>();
   @Output() onEventClicked = new EventEmitter<CalendarEvent>();
+
+  onChange: (_: CalendarEvent[]) => void = (_: CalendarEvent[]) => {};
+  onTouched: () => void = () => {};
 
   modalData: {
     action: string;
@@ -85,6 +95,17 @@ export class CalendarComponent {
   activeDayIsOpen: boolean = true;
 
   constructor(private readonly cdr: ChangeDetectorRef) {}
+  writeValue(events: CalendarEvent[]): void {
+    this.events = events;
+    this.cdr.detectChanges();
+    this.onChange(this.events);
+  }
+  registerOnChange(fn: any): void {
+    this.onChange = fn;
+  }
+  registerOnTouched(fn: any): void {
+    this.onTouched = fn;
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -143,7 +164,7 @@ export class CalendarComponent {
                  newEnd,
                }): CalendarEvent {
     let newEvent = event;
-    this.events = this.events.map((iEvent) => {
+    this.writeValue(this.events.map((iEvent) => {
       if (iEvent === event) {
         newEvent = {
           ...event,
@@ -162,22 +183,21 @@ export class CalendarComponent {
         return newEvent;
       }
       return iEvent;
-    });
+    }));
     return newEvent;
   }
 
   addEvent(event: CalendarEvent): CalendarEvent {
-    this.events = [
+    this.writeValue([
       ...this.events,
       event
-    ];
-    this.cdr.detectChanges();
+    ]);
     return event;
   }
 
   deleteEvent(eventToDelete: CalendarEvent) {
-    this.events = this.events.filter(event => event !== eventToDelete);
-    this.cdr.detectChanges();
+    this.writeValue(this.events.filter(event => event !== eventToDelete));
+
   }
 
   closeOpenMonthViewDay() {
@@ -201,7 +221,7 @@ export class CalendarComponent {
 
   // Recrate new array to detect events changes
   detectChangeEvents() {
-    this.events = [...this.events];
+    this.writeValue([...this.events]);
     this.detectChanges();
   }
 

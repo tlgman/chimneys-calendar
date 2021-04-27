@@ -9,7 +9,7 @@
     ></bo-availabilities-calendar>
   </div>
   <div class="col-md-3">
-    <button pButton type="button" label="Enregistrer"></button>
+    <button pButton type="button" label="Enregistrer" [icon]="saveButtonIcon" (click)="saveWeek()"></button>
     <button pButton type="button" label="Valider" class="p-button-success p-button-outlined"></button>
     <button pButton type="button" label="Annuler" class="p-button-danger"></button>
     <div *ngIf="selectedAvailability">
