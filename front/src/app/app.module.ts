@@ -2,10 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import {FormsModule} from '@angular/forms'
+import { DateFnsModule } from 'ngx-date-fns';
 
 import {InputTextModule as PrimeInputTextModule} from 'primeng/inputtext';
 import {ButtonModule as PrimeButtonModule} from 'primeng/button';
 import {StepsModule as PrimeStepsModule} from 'primeng/steps';
+import {ChipModule as PrimeChipModule} from 'primeng/chip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +18,7 @@ import {RdvTakerComponent} from './components/rdv-taker/rdv-taker.component';
 import { HeaderComponent } from './components/header/header.component';
 import { TakeRdvComponent } from './pages/take-rdv/take-rdv.component';
 import { ContainerComponent } from './pages/container/container.component';
+import { SlotsChooserComponent } from './components/slots-chooser/slots-chooser.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,8 @@ import { ContainerComponent } from './pages/container/container.component';
     RdvTakerComponent,
     HeaderComponent,
     TakeRdvComponent,
-    ContainerComponent
+    ContainerComponent,
+    SlotsChooserComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +39,9 @@ import { ContainerComponent } from './pages/container/container.component';
     FormsModule,
     PrimeInputTextModule,
     PrimeButtonModule,
-    PrimeStepsModule
+    PrimeStepsModule,
+    PrimeChipModule,
+    DateFnsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

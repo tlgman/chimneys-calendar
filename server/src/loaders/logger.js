@@ -44,7 +44,7 @@ module.exports = (callingModule) => {
         format: combine(
           timestamp({format: 'YYYY-MM-DD HH:mm:ss'}),
           splat(),
-          label({ label: getLabel(callingModule)}),
+          label({label: getLabel(callingModule)}),
           personalizedFormat
         )
       })

@@ -10,8 +10,9 @@ export const environment = {
   api: {
     availabilities: {
       base: '/availabilities',
-      week: '/week'
-    }
+      week: '/week',
+      availablesSlots: '/availabilities/slots'
+    }, 
   },
   rdvTaker: {
     limitSearchResult: 5,
@@ -22,7 +23,8 @@ export const environment = {
   },
   date: {
     locale: fr
-  }
+  },
+  slotSize: 30
 };
 
 /*

@@ -95,18 +95,19 @@ export class PageAvailabilitiesComponent {
   saveWeek() {
     const events = this.calendar.events;
     const viewDate = this.calendar.getViewDate();
-    const startWeek = startOfWeek(viewDate);
-    const endWeek = endOfWeek(viewDate);
+    // Start on week 1 for french week (start on monday)
+    const startWeek = startOfWeek(viewDate, {weekStartsOn: 1});
+    const endWeek = endOfWeek(viewDate, {weekStartsOn: 1});
 
     const availabilities = events
-    .filter(({start, end}) => isAfter(start, startWeek) && isBefore(end, endWeek))
-    .map<Availability>((event) => (
-      {
-        start: event.start,
-        end: event.end,
-        zoneId: event.meta?.zoneId
-      }
-    ));
+      .filter(({start, end}) => isAfter(start, startWeek) && isBefore(end, endWeek))
+      .map<Availability>((event) => (
+        {
+          start: event.start,
+          end: event.end,
+          zoneId: event.meta?.zoneId
+        }
+      ));
     this.saveButtonIcon = CLASS_ICON_SPINNER;
     this.availabilitiesFacade.updateOrCreateWeek$(availabilities, startWeek, endWeek).subscribe(() => {
       this.saveButtonIcon = CLASS_ICON_CHECK;

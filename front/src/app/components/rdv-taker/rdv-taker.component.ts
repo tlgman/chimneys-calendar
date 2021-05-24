@@ -2,6 +2,7 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {GeocodingService} from '../../services/geocoding.service';
 import {SearchedAddress} from '../../models/address';
 import {MapComponent} from '../../../map/map.component';
+import { Coordinate } from 'ol/coordinate';
 
 @Component({
   selector: 'app-rdv-taker',
@@ -13,6 +14,7 @@ export class RdvTakerComponent {
   chosenAddress: SearchedAddress;
   chosenAddressLabel: string;
   selectedAddress: SearchedAddress;
+  selectedCoordinate: Coordinate;
 
   @ViewChild('map') map: MapComponent;
 
@@ -23,14 +25,14 @@ export class RdvTakerComponent {
       this.geocoder.search$(search).subscribe((result: {features: Array<SearchedAddress>}) => {
         console.log(result.features.length);
         console.log(result.features[0]);
-        this.availableAddresses = result.features.map((feature) => feature);
+        this.availableAddresses = result.features;
       })
     }
   }
 
   selectAddress() {
     this.selectedAddress = this.chosenAddress;
-    this.map.addMarker(this.chosenAddress.geometry.coordinates);
+    setTimeout(() => this.map.addMarker(this.chosenAddress.geometry.coordinates));
+    this.selectedCoordinate = this.chosenAddress.geometry.coordinates;
   }
-
 }

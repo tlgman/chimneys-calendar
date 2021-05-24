@@ -2,6 +2,10 @@ const Router = require('express').Router;
 const HttpStatus = require('http-status-codes');
 const logger = require('../loaders/logger')(module);
 const Appointment = require('../models/Appointment');
+const Sequelize = require('sequelize');
+const db = require('../loaders/db');
+
+
 
 const router = new Router();
 
@@ -40,5 +44,6 @@ router.post('/', async(req, res) => {
     logger.error('Unable to create appointments %o', ex);
   }
 });
+
 
 module.exports = router;

@@ -1,7 +1,9 @@
 const Router = require('express').Router;
-const Availability = require('../models/Availabilitiy');
+const Availability = require('../models/Availability');
 const logger = require('../loaders/logger')(module);
 const HttpStatus = require('http-status-codes');
+const {query, validationResult} = require('express-validator');
+const AvailabilitiesService = require('../services/availabilities.service');
 
 const router = new Router();
 
@@ -35,7 +37,36 @@ router.post('/week', async (req, res) => {
      err 
     })
   }
-
 });
+
+
+/**
+ * Get all available slots for specific coordinate
+ */
+ router.get('/slots',
+  query('lon').isNumeric(),
+  query('lat').isNumeric(),
+  async (req, res) => {
+    const errors = validationResult(req);
+    if(!errors.isEmpty()) {
+      res.status(HttpStatus.BAD_REQUEST).send({errors: errors.array()})
+      return;
+    }
+    try {
+      const lat = +req.query.lat;
+      const lon = +req.query.lon;
+
+      const availabilitiesService = new AvailabilitiesService();
+      const result = await availabilitiesService.getAvailableSlots(lon, lat);
+      res.send(result);
+    } catch(err) {
+      res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
+        errors: ['Unable to get appointments with these coordinates.']
+      });
+      logger.error('Unable to get appointments for coordinates %o : %o', [req.params.lat, req.params.lon], err);
+    }
+  }
+);
+
 
 module.exports = router;

@@ -24,4 +24,8 @@
     </ul>
 </div>
 
-<app-map *ngIf="selectedAddress" #map></app-map>
+<div *ngIf="selectedAddress" class="p-grid p-nogutter">
+  <app-slots-chooser [coordinate]="selectedCoordinate" class="p-col"></app-slots-chooser>
+  <app-map #map class="p-col"></app-map>
+</div>
+

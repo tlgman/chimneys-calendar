@@ -2,6 +2,7 @@ const express = require('express');
 const config = require('config');
 const cors = require('cors');
 
+// Loaders
 const morganLogger = require('./loaders/morganLogger');
 const logger = require('./loaders/logger')(module);
 const db = require('./loaders/db');

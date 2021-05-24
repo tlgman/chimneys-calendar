@@ -15,7 +15,10 @@
       "es2018",
       "dom"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "paths": {
+      "@app/*": ["app/*"],
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

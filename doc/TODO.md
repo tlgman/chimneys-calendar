@@ -29,6 +29,8 @@
 * Utiliser pour les urls des requêtes
 
 ## Disponibilités
+* Pouvoir modifier des disponiblités existantes
+* Pouvoir supprimer des disponibilités
 * Validator : pas possible d'avoir une date de fin plus petite qu'une date de début...
 * A l'enregistrement, mettre à jour les dispo avec les id, sinon au prochain enregistrement il y aura un problème
 * Pouvoir supprimer une dispo

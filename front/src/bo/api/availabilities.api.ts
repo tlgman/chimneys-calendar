@@ -9,7 +9,6 @@ import { Availability, JsonAvailability } from '../models/availability.model';
 export type AvaialbilitiesWeekParams = {
   start: string;
   end: string;
-
 }
 
 @Injectable({
