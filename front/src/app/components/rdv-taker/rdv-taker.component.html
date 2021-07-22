@@ -1,31 +1,20 @@
 <div class="p-inputgroup">
-<span class="p-inputgroup-addon">
+  <span class="p-inputgroup-addon">
     <i class="pi pi-map-marker"></i>
-</span>
-<input type="text" id="user-address"
-       class="search-address-input"
-       pInputText
-       placeholder="Entrez votre adresse"
-       (ngModelChange)="onSearchAddressChange($event)"
-       [(ngModel)]="chosenAddressLabel"
->
-<button type="button"
-        (click)="selectAddress()"
-        pButton
-        pRipple
-        label="Ok"></button>
+  </span>
+  <input type="text" id="user-address" class="search-address-input" pInputText placeholder="Entrez votre adresse"
+    (ngModelChange)="onSearchAddressChange($event)" [(ngModel)]="chosenAddressLabel">
+  <button type="button" (click)="selectAddress()" pButton pRipple label="Ok"></button>
 </div>
 <div>
-    <ul>
-        <li *ngFor="let address of availableAddresses"
-            class="searched-address"
-            (click)="chosenAddress = address; chosenAddressLabel = address.properties.label"
-        >{{address.properties.label}}</li>
-    </ul>
+  <ul>
+    <li *ngFor="let address of availableAddresses" class="searched-address"
+      (click)="chosenAddress = address; chosenAddressLabel = address.properties.label">{{address.properties.label}}</li>
+  </ul>
 </div>
 
-<div *ngIf="selectedAddress" class="p-grid p-nogutter">
-  <app-slots-chooser [coordinate]="selectedCoordinate" class="p-col"></app-slots-chooser>
-  <app-map #map class="p-col"></app-map>
-</div>
-
+<!-- <div *ngIf="selectedAddress" class="p-grid p-nogutter"> -->
+<!-- <app-slots-chooser [coordinate]="selectedCoordinate" class="p-col"></app-slots-chooser> -->
+<app-slots-chooser [coordinate]="[5.920982, 45.564763]" class="p-col"></app-slots-chooser>
+<app-map #map class="p-col"></app-map>
+<!-- </div> -->

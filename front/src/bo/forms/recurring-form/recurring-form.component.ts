@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output, Input} from '@angular/core';
-import {format} from 'date-fns';
+import { Component, EventEmitter, OnInit, Output, Input } from '@angular/core';
+import { format } from 'date-fns';
 
 export enum DayValue {
   MONDAY = 0,
@@ -11,12 +11,12 @@ export enum DayValue {
   SUNDAY = 6
 }
 
-type Day = {value: DayValue, locale: string, selected: boolean};
+type Day = { value: DayValue, locale: string, selected: boolean };
 
 
 /**
- * Composant permettant affichant la liste des jours de la semaine.
- * Emet des évènements à la sélection et la déslélection d'un jour
+ * Component displaying list of days of the week
+ * Emit events after selection or deselection of a day
  */
 @Component({
   selector: 'app-recurring-form',
@@ -33,13 +33,13 @@ export class RecurringFormComponent implements OnInit {
   @Input('endHour') endHour: string;
 
   days: Day[] = [
-    {value: DayValue.MONDAY, locale: 'Lun', selected: false},
-    {value: DayValue.TUESDAY, locale: 'Mar', selected: false},
-    {value: DayValue.WEDNESDAY, locale: 'Mer', selected: false},
-    {value: DayValue.THURSDAY, locale: 'Jeu', selected: false},
-    {value: DayValue.FRIDAY, locale: 'Ven', selected: false},
-    {value: DayValue.SATURDAY, locale: 'Sam', selected: false},
-    {value: DayValue.SUNDAY, locale: 'Dim', selected: false},
+    { value: DayValue.MONDAY, locale: 'Lun', selected: false },
+    { value: DayValue.TUESDAY, locale: 'Mar', selected: false },
+    { value: DayValue.WEDNESDAY, locale: 'Mer', selected: false },
+    { value: DayValue.THURSDAY, locale: 'Jeu', selected: false },
+    { value: DayValue.FRIDAY, locale: 'Ven', selected: false },
+    { value: DayValue.SATURDAY, locale: 'Sam', selected: false },
+    { value: DayValue.SUNDAY, locale: 'Dim', selected: false },
   ];
 
   constructor() { }
@@ -49,7 +49,7 @@ export class RecurringFormComponent implements OnInit {
 
   clickDay(day: Day) {
     day.selected = !day.selected;
-    if(day.selected) {
+    if (day.selected) {
       this.selectedDay.emit(day.value);
     } else {
       this.unselectedDay.emit(day.value);
@@ -64,7 +64,7 @@ export class RecurringFormComponent implements OnInit {
     this.daySelection(dayValue, false);
   }
 
-  onStartHourChange(event : Event) {
+  onStartHourChange(event: Event) {
     this.startHour = (event.target as HTMLInputElement).value;
     this.startHourChange.emit(this.startHour);
   }
@@ -76,7 +76,7 @@ export class RecurringFormComponent implements OnInit {
 
   private daySelection(dayValue: DayValue, selection: boolean) {
     const day = this.days.find(day => day.value === dayValue);
-    if(day) {
+    if (day) {
       day.selected = selection;
     }
   }

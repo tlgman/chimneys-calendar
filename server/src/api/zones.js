@@ -10,7 +10,7 @@ router.get('/', async (req, res) => {
   try {
     const zones = await Zone.findAll();
     res.send(zones);
-  } catch(err) {
+  } catch (err) {
     logger.error('Unable get zones: %o', err);
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('Unable to get zones.');
   }
@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
       geom: req.body.geom
     });
     res.status(HttpStatus.CREATED).send(zone);
-  } catch(err) {
+  } catch (err) {
     logger.error('Unable to create zone: %o', err);
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('Unable to create new zone.');
   }

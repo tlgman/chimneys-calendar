@@ -1,8 +1,8 @@
 const config = require('config');
-const {isBefore, addMinutes, isAfter} = require('date-fns');
+const { isBefore, addMinutes, isAfter } = require('date-fns');
 
 class SlotsService {
-  constructor() {}
+  constructor() { }
 
   /**
    * @param {Date} start 
@@ -13,12 +13,12 @@ class SlotsService {
   sliceTimeIntervalIntoSlots(start, end, slotSize = config.get('slotSize')) {
     const slots = [];
     let currentWorkingDate = start;
-    while(isBefore(currentWorkingDate, end)) {
+    while (isBefore(currentWorkingDate, end)) {
       const slot = {
         start: currentWorkingDate,
         end: addMinutes(currentWorkingDate, slotSize)
       };
-      if(!isAfter(slot.end, end)) {
+      if (!isAfter(slot.end, end)) {
         slots.push(slot);
       }
       currentWorkingDate = slot.end;

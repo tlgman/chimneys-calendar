@@ -11,12 +11,14 @@ import { JsonSlot } from '../models/slot';
 export default class SlotsApi {
   protected api = environment.serverUrl + environment.api.availabilities.availablesSlots;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-  getAvailableSlots(coordinate: Coordinate): Observable<JsonSlot[]> {
+  getAvailableSlots(coordinate: Coordinate, start: string, end: string): Observable<JsonSlot[]> {
     const params = new HttpParams()
-    .append('lon', '' + coordinate[0])
-    .append('lat', '' + coordinate[1]);
-    return this.http.get<JsonSlot[]>(this.api, {params});
+      .append('lon', '' + coordinate[0])
+      .append('lat', '' + coordinate[1])
+      .append('start', start)
+      .append('end', end);
+    return this.http.get<JsonSlot[]>(this.api, { params });
   }
 }

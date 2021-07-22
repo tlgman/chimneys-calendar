@@ -23,10 +23,17 @@
 
 
 # Front
+
+
+## Prise de rendez-vous (rdv-taker)
+* Pouvoir choisir un rendez-vous disponible
+* Mettre à jour pour les autres qu'un rendez-vous est en train d'être pris
+* Arriver directement sur la première semaine avec des rendez-vous dispo
+* Ne pas revenir en arrière après la date du jour
+* Travailler un peu le design
  
 ## Global
 * Mettre en place un composant de notification
-* Utiliser pour les urls des requêtes
 
 ## Disponibilités
 * Pouvoir modifier des disponiblités existantes

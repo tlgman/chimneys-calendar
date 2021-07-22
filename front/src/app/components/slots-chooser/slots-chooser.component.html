@@ -1,21 +1,36 @@
+<p-button (click)="previousWeek()">
+  Précédent
+</p-button>
+<p-button (click)="nextWeek()">
+  Suivant
+</p-button>
 <table>
   <thead>
     <tr>
-      <th>Lundi</th>
-      <th>Mardi</th>
-      <th>Mercredi</th>
-      <th>Jeudi</th>
-      <th>Vendredi</th>
-      <th>Samedi</th>
+      <th *ngFor="let day of daysInWeek">{{ day | dfnsFormat: 'E dd MMM'}}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let numi of [].constructor(columnSize); let i = index">
-      <td *ngFor="let numj of [].constructor(7); let j = index">
-        <div *ngIf="slotMatrix[j][i]">
-          <p-chip  label="{{slotMatrix[j][i].start | dfnsFormat: 'hh:mm'}}"></p-chip>
-        </div>
+    <tr *ngIf="loading; else noSlot">
+      <td colspan="6" class="icon-spinner-container">
+        <i class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
       </td>
     </tr>
+    <ng-template #noSlot>
+      <tr *ngIf="!slotMatrix.length; else slotTable">
+        <td colspan="6">
+          Aucune disponiblités cette semaine
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template #slotTable>
+      <tr *ngFor="let numi of [].constructor(columnSize); let i = index">
+        <td *ngFor="let numj of [].constructor(6); let j = index">
+          <div *ngIf="slotMatrix[j][i]">
+            <p-chip label="{{slotMatrix[j][i].start | dfnsFormat: 'hh:mm'}}"></p-chip>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
   </tbody>
 </table>

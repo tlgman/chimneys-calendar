@@ -2,8 +2,10 @@ const Router = require('express').Router;
 const Availability = require('../models/Availability');
 const logger = require('../loaders/logger')(module);
 const HttpStatus = require('http-status-codes');
-const {query, validationResult} = require('express-validator');
+const { query, validationResult } = require('express-validator');
 const AvailabilitiesService = require('../services/availabilities.service');
+const { addMinutes, parse, endOfDay, startOfDay } = require('date-fns');
+const { convertToLocalTime } = require('date-fns-timezone');
 
 const router = new Router();
 
@@ -12,7 +14,7 @@ router.get('/', async (req, res) => {
     // TODO get from date limit
     const availabilities = await Availability.findAll();
     res.send(availabilities);
-  } catch(err) {
+  } catch (err) {
     logger.error('Unable get availabilities: %o', err);
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send('Unable to get availabilities.');
   }
@@ -30,11 +32,11 @@ router.post('/week', async (req, res) => {
       status: 'updated',
       message: 'WEEK_UPDATED'
     });
-  } catch(err) {
+  } catch (err) {
     res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
-     status: 'error',
-     message: 'CANNOT_UPDTATE_OR_CREATE_WEEK',
-     err 
+      status: 'error',
+      message: 'CANNOT_UPDTATE_OR_CREATE_WEEK',
+      err
     })
   }
 });
@@ -43,23 +45,38 @@ router.post('/week', async (req, res) => {
 /**
  * Get all available slots for specific coordinate
  */
- router.get('/slots',
+router.get('/slots',
   query('lon').isNumeric(),
   query('lat').isNumeric(),
+  query('start').isDate({ format: 'DD/MM/YYYY' }),
+  query('end').isDate({ format: 'DD/MM/YYYY' }),
   async (req, res) => {
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
-      res.status(HttpStatus.BAD_REQUEST).send({errors: errors.array()})
+    if (!errors.isEmpty()) {
+      res.status(HttpStatus.BAD_REQUEST).send({ errors: errors.array() })
       return;
     }
     try {
+      const currentDate = new Date;
       const lat = +req.query.lat;
       const lon = +req.query.lon;
+      const start = convertToLocalTime(
+        startOfDay(
+          parse(req.query.start, 'dd/MM/yyyy', currentDate),
+        ),
+        { timeZone: 'Etc/GMT' }
+      );
+      const end = convertToLocalTime(
+        endOfDay(
+          parse(req.query.end, 'dd/MM/yyyy', currentDate)
+        ),
+        { timeZone: 'Etc/GMT' }
+      );
 
       const availabilitiesService = new AvailabilitiesService();
-      const result = await availabilitiesService.getAvailableSlots(lon, lat);
+      const result = await availabilitiesService.getAvailableSlots(lon, lat, start, end);
       res.send(result);
-    } catch(err) {
+    } catch (err) {
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).send({
         errors: ['Unable to get appointments with these coordinates.']
       });
